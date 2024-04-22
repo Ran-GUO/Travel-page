@@ -24,13 +24,11 @@ const map = new ol.Map({
     zoom: 2
   })
 });
-const layer = new ol.layer.Vector({
 
-});
-map.addLayer(layer);
+//const layer = new ol.layer.Vector({
+//
+//});
 
-
-/*
 const layer = new ol.layer.Vector({
   source: new ol.source.Vector({
     features: [
@@ -43,7 +41,9 @@ const layer = new ol.layer.Vector({
     image: new ol.style.Icon({
       anchor: [0.5, 1],
       crossOrigin: 'anonymous',
-      src: 'image/marker-icon.png',
+      src: '../image/marker-icon.png',
     })
   })
-});*/
+});
+
+map.addLayer(layer);
