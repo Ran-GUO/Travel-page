@@ -41,7 +41,7 @@ const layer = new ol.layer.Vector({
     image: new ol.style.Icon({
       anchor: [0.5, 1],
       crossOrigin: 'anonymous',
-      src: '../image/marker-icon.png',
+      src: '../images/marker-icon.png',
     })
   })
 });
