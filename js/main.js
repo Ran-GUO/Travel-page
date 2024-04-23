@@ -17,7 +17,10 @@ const CITY_MARKER_ICON = "https://ran-guo.github.io/travel-page/images/city-mark
 const MARKER_SCALE = 0.6;
 const MARKER_OPACITY = 0.75;
 
+var clicked_value = '';
+
 // Begin Here=======================================
+
 // Create map
 const attribution = new ol.control.Attribution({
   collapsible: false,
@@ -41,18 +44,25 @@ const map = new ol.Map({
     constrainResolution: true,
     center: ol.proj.fromLonLat(MAP_CENTER),
     zoom: MAP_ZOOM
-  })
+  }),
 });
 
-// Create and add layers
-const flightsLayer = createFlightLayer();
-map.addLayer(flightsLayer);
+var flightsLayer;
+var flightsIconLayer;
+var cityIconLayer;
 
-const flightsIconLayer = CreateFlightIconLayer();
-map.addLayer(flightsIconLayer);
+setTimeout(() => {
+  // Create and add layers
+  flightsLayer = createFlightLayer();
+  map.addLayer(flightsLayer);
 
-const cityIconLayer = CreateCityIconLayer();
-map.addLayer(cityIconLayer);
+  flightsIconLayer = CreateFlightIconLayer();
+  map.addLayer(flightsIconLayer);
+
+  cityIconLayer = CreateCityIconLayer();
+  map.addLayer(cityIconLayer);
+
+}, 500);
 
 //Functions ============================================
 //Create flight layer
@@ -63,33 +73,39 @@ function createFlightLayer(){
       width: FLIGHT_TRACE_WIDTH,
     }),
   });
-
+  
   const flightsSource = new ol.source.Vector({
     loader: function () {
       for (let i = 0; i < flightsData.length; i++) {
         const flight = flightsData[i];
-        const from = flight[0][1];
-        const to = flight[1][1];
+        // const from = flight[0][1];
+        // const to = flight[1][1];
     
-        const arcGenerator = new arc.GreatCircle(
-          {x: from[1], y: from[0]},
-          {x: to[1], y: to[0]},
-        );
-        const arcLine = arcGenerator.Arc(100, {offset: 10});
-        const features = [];
-        arcLine.geometries.forEach(function (geometry) {
-          const line = new ol.geom.LineString(geometry.coords);
-          line.transform('EPSG:4326', 'EPSG:3857');
+        // const arcGenerator = new arc.GreatCircle(
+        //   {x: from[1], y: from[0]},
+        //   {x: to[1], y: to[0]},
+        // );
+        if (clicked_value == '' || (flight["Iata_from"] == clicked_value || flight["Iata_to"] == clicked_value)) {
+          const arcGenerator = new arc.GreatCircle(
+            {x: flight["From_lon"], y: flight["From_lat"]},
+            {x: flight["To_lon"], y: flight["To_lat"]},
+          );
+          const arcLine = arcGenerator.Arc(100, {offset: 10});
+          const features = [];
+          arcLine.geometries.forEach(function (geometry) {
+            const line = new ol.geom.LineString(geometry.coords);
+            line.transform('EPSG:4326', 'EPSG:3857');
 
-          features.push(
-            new ol.Feature({
-              type: 'flight',
-              geometry: line,
-              finished: false,
-            }),
-          ); 
-        });
-        addLater(features, i * 50);
+            features.push(
+              new ol.Feature({
+                type: 'flight',
+                geometry: line,
+                finished: false,
+              }),
+            ); 
+          });
+          addLater(features, 1);
+        }
       }
       tileLayer.on('postrender', animateFlights);
     },
@@ -163,7 +179,6 @@ return flightsLayer;
 }
 
 
-
 //Create flight marker layer
 function CreateFlightIconLayer(){
   const container = new ol.layer.Vector({
@@ -171,8 +186,10 @@ function CreateFlightIconLayer(){
   });
 
   for (let i = 0; i < flightsData.length; i++) {
+    var index = [["Iata_from","From_lat","From_lon"],["Iata_to","To_lat","To_lon"]];
     for (let j = 0; j < 2; j++) {
-      const pointFeature = CreatePointFeature(flightsData[i][j], Flight_MARKER_ICON);
+      const featureData=[flightsData[i][index[j][0]],[flightsData[i][index[j][1]],flightsData[i][index[j][2]]]];
+      const pointFeature = CreatePointFeature(featureData, Flight_MARKER_ICON);
       if (pointFeature) container.getSource()?.addFeature(pointFeature);
     }
   }
@@ -215,7 +232,7 @@ function CreatePointFeature(triplet, icon_src) {
   return feature;
 }
 
-// Hoop on
+// Hop on
 map.on('pointermove', function(e) {
   // if (e.dragging) {
   //     return;
@@ -229,6 +246,15 @@ map.on('pointermove', function(e) {
   // if (hit) displayPopup(e);
   displayPopup(e);
 });
+
+map.on('click', function(e) {
+  clicked_value = displayPopup(e);
+  let test = document.getElementById("random_id");
+  test.innerHTML = "It is => " + clicked_value;
+  map.removeLayer(flightsLayer);
+  flightsLayer = createFlightLayer();
+  map.addLayer(flightsLayer);
+})
 
 const popup = new ol.Overlay({
   element: document.getElementById('popup'),
@@ -254,9 +280,10 @@ function displayPopup(e) {
     // content: '<p>The location you clicked was: ' + hdms + '</p>',
     content: hit ? '<p>' + f.get('id') + '</p>' : '',
     html: true,
-    placement: 'top',
+    placement: 'right',
     // title: 'Welcome to OpenLayers',
     title: hit ? f.get('type') : '',
+    offset: [20, 20],
   });
   if (f && (f.get('type') == 'city' || f.get('type') == 'airport')) {
     popover.show();
@@ -264,5 +291,32 @@ function displayPopup(e) {
   else {
     popover.hide();
   }
+  return hit ? f.get('id') : '';
 }
 
+
+function checkBoxFunction() {
+  // Get the checkbox
+  var checkBoxFlight = document.getElementById("checkBoxFlight");
+  var checkBoxAirport = document.getElementById("checkBoxAirport");
+  var checkBoxCity = document.getElementById("checkBoxCity");
+
+  // If the checkbox is checked, display the output text
+  if (checkBoxFlight.checked == true){
+    flightsLayer.setVisible(true);
+  } else {
+    flightsLayer.setVisible(false);
+  }
+
+  if (checkBoxAirport.checked == true){
+    flightsIconLayer.setVisible(true);
+  } else {
+    flightsIconLayer.setVisible(false);
+  }
+
+  if (checkBoxCity.checked == true){
+    cityIconLayer.setVisible(true);
+  } else {
+    cityIconLayer.setVisible(false);
+  }
+}

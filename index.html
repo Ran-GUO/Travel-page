@@ -2,25 +2,32 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Display a map</title>
+    <title>My Travel Diary</title>
     <link rel="stylesheet" href="css/ol.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
     <script src="js/ol.js"></script>
     <style src="css/style.css"></style>
   </head>
   <body>
-    <div id="map"></div>
+    <div>
+      <input type="checkbox" id="checkBoxFlight" checked onclick="checkBoxFunction()"> show flight routes <br>
+      <input type="checkbox" id="checkBoxAirport" checked onclick="checkBoxFunction()"> show airport icons <br>
+      <input type="checkbox" id="checkBoxCity" checked onclick="checkBoxFunction()"> show city icons <br>
+    </div>
+    <p id="random_id"> It is =></p>
+
+    <div id="map" style="width:100%;height:90%"></div>
 
     <div style="display: none;">
-      <!-- Clickable label for Vienna -->
       <div id="popup"></div>
     </div>
-    
-   
+       
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/arc.js"></script>
     <script src="js/data.js"></script>
     <script src="js/main.js"></script>
 
+
+    
   </body>
 </html>
