@@ -11,12 +11,16 @@ const FLIGHT_TRACE_COLOR = '#e8530e';
 const FLIGHT_TRACE_WIDTH = 2;
 const FLIGHT_TRACE_SPEED = 2;
 
-const MARKER_ICON = "https://ran-guo.github.io/travel-page/images/marker-icon.png";
-const MARKER_SCALE = 0.5;
+const Flight_MARKER_ICON = "https://ran-guo.github.io/travel-page/images/airport-marker-icon.png";
+const CITY_MARKER_ICON = "https://ran-guo.github.io/travel-page/images/city-marker-icon.png";
+//const Flight_MARKER_ICON = "../images/airport-marker-icon.png";
+//const CITY_MARKER_ICON = "../images/city-marker-icon.png";
+
+const MARKER_SCALE = 0.6;
 const MARKER_OPACITY = 0.75;
 
 //Data
-var MarkerData = [
+var CityData = [
   [36.6749, -4.49911],  //AGP
   [43.3521, 77.0405],   //ALA
   [31.7226, 35.9932]];  //AMM
@@ -59,8 +63,11 @@ const map = new ol.Map({
 const flightsLayer = createFlightLayer();
 map.addLayer(flightsLayer);
 
-const markerLayer = CreateMarkerLayer()
-map.addLayer(markerLayer);
+const flightsIconLayer = CreateFlightIconLayer();
+map.addLayer(flightsIconLayer);
+
+const cityIconLayer = CreateCityIconLayer();
+map.addLayer(cityIconLayer);
 
 
 
@@ -174,8 +181,8 @@ return flightsLayer;
 
 
 
-//Create marker layer
-function CreateMarkerLayer(){
+//Create flight marker layer
+function CreateFlightIconLayer(){
   const container = new ol.layer.Vector({
     source: new ol.source.Vector(),
   });
@@ -187,12 +194,6 @@ function CreateMarkerLayer(){
     }
   }
 
-  for (let i = 0; i < MarkerData.length; i++) {
-    const pointFeature = CreatePointFeature(MarkerData[i][1],MarkerData[i][0]);
-    if (pointFeature) container.getSource()?.addFeature(pointFeature);
-  }
-
-
   function CreatePointFeature(x, y) {
 
     const feature = new ol.Feature({
@@ -201,7 +202,7 @@ function CreateMarkerLayer(){
 
     const iconStyle = new ol.style.Style({
       image: new ol.style.Icon({
-        src: MARKER_ICON,
+        src: Flight_MARKER_ICON,
         scale: MARKER_SCALE,
         opacity: MARKER_OPACITY,
         anchor: [0.5, 1],
@@ -214,6 +215,41 @@ function CreateMarkerLayer(){
 
   return container;
 }
+
+//Create city marker layer
+function CreateCityIconLayer(){
+  const container = new ol.layer.Vector({
+    source: new ol.source.Vector(),
+  });
+
+  for (let i = 0; i < CityData.length; i++) {
+    const pointFeature = CreatePointFeature(CityData[i][1],CityData[i][0]);
+    if (pointFeature) container.getSource()?.addFeature(pointFeature);
+  }
+
+
+  function CreatePointFeature(x, y) {
+
+    const feature = new ol.Feature({
+      geometry: new ol.geom.Point(ol.proj.fromLonLat([x , y])),
+    });
+
+    const iconStyle = new ol.style.Style({
+      image: new ol.style.Icon({
+        src: CITY_MARKER_ICON,
+        scale: MARKER_SCALE,
+        opacity: MARKER_OPACITY,
+        anchor: [0.5, 1],
+      }),
+    });
+    feature.setStyle(iconStyle);
+
+    return feature;
+  }
+
+  return container;
+}
+
 
 
 
