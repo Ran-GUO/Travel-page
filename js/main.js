@@ -4,33 +4,18 @@
 const key = 'ayoPJhNrPgf1eLBVDNY3';
 
 //Setting
-var MAP_CENTER = [0, 0];
+var MAP_CENTER = [52, 30];
 const MAP_ZOOM = 2;
 
 const FLIGHT_TRACE_COLOR = '#e8530e';
 const FLIGHT_TRACE_WIDTH = 2;
-const FLIGHT_TRACE_SPEED = 2;
+const FLIGHT_TRACE_SPEED = 7;
 
 const Flight_MARKER_ICON = "https://ran-guo.github.io/travel-page/images/airport-marker-icon.png";
 const CITY_MARKER_ICON = "https://ran-guo.github.io/travel-page/images/city-marker-icon.png";
-//const Flight_MARKER_ICON = "../images/airport-marker-icon.png";
-//const CITY_MARKER_ICON = "../images/city-marker-icon.png";
 
 const MARKER_SCALE = 0.6;
 const MARKER_OPACITY = 0.75;
-
-//Data
-var CityData = [
-  [36.6749, -4.49911],  //AGP
-  [43.3521, 77.0405],   //ALA
-  [31.7226, 35.9932]];  //AMM
-
-var flightsData = [[[40.641766, -73.780968], [35.553333, 139.781113]], // JFK-HND
-                  [[33.942496, -118.408048], [-20.889999, 55.516389]], // LAX-RUN
-                  [[-34.822221, -58.535832], [38.967, 121.540]], // EZE-DLC
-                  [[49.009722, 2.547778], [22.308889, 113.914722]], // CDG-HKG
-                  [[-1.319241, 36.927775], [1.359211, 103.989333]]]; // NBO-SIN
-
 
 // Begin Here=======================================
 // Create map
@@ -69,9 +54,6 @@ map.addLayer(flightsIconLayer);
 const cityIconLayer = CreateCityIconLayer();
 map.addLayer(cityIconLayer);
 
-
-
-
 //Functions ============================================
 //Create flight layer
 function createFlightLayer(){
@@ -86,8 +68,8 @@ function createFlightLayer(){
     loader: function () {
       for (let i = 0; i < flightsData.length; i++) {
         const flight = flightsData[i];
-        const from = flight[0];
-        const to = flight[1];
+        const from = flight[0][1];
+        const to = flight[1][1];
     
         const arcGenerator = new arc.GreatCircle(
           {x: from[1], y: from[0]},
@@ -101,6 +83,7 @@ function createFlightLayer(){
 
           features.push(
             new ol.Feature({
+              type: 'flight',
               geometry: line,
               finished: false,
             }),
@@ -189,28 +172,9 @@ function CreateFlightIconLayer(){
 
   for (let i = 0; i < flightsData.length; i++) {
     for (let j = 0; j < 2; j++) {
-      const pointFeature = CreatePointFeature(flightsData[i][j][1],flightsData[i][j][0]);
+      const pointFeature = CreatePointFeature(flightsData[i][j], Flight_MARKER_ICON);
       if (pointFeature) container.getSource()?.addFeature(pointFeature);
     }
-  }
-
-  function CreatePointFeature(x, y) {
-
-    const feature = new ol.Feature({
-      geometry: new ol.geom.Point(ol.proj.fromLonLat([x , y])),
-    });
-
-    const iconStyle = new ol.style.Style({
-      image: new ol.style.Icon({
-        src: Flight_MARKER_ICON,
-        scale: MARKER_SCALE,
-        opacity: MARKER_OPACITY,
-        anchor: [0.5, 1],
-      }),
-    });
-    feature.setStyle(iconStyle);
-
-    return feature;
   }
 
   return container;
@@ -222,56 +186,83 @@ function CreateCityIconLayer(){
     source: new ol.source.Vector(),
   });
 
-  for (let i = 0; i < CityData.length; i++) {
-    const pointFeature = CreatePointFeature(CityData[i][1],CityData[i][0]);
+  for (let i = 0; i < cityData.length; i++) {
+    const pointFeature = CreatePointFeature(cityData[i], CITY_MARKER_ICON);
     if (pointFeature) container.getSource()?.addFeature(pointFeature);
-  }
-
-
-  function CreatePointFeature(x, y) {
-
-    const feature = new ol.Feature({
-      geometry: new ol.geom.Point(ol.proj.fromLonLat([x , y])),
-    });
-
-    const iconStyle = new ol.style.Style({
-      image: new ol.style.Icon({
-        src: CITY_MARKER_ICON,
-        scale: MARKER_SCALE,
-        opacity: MARKER_OPACITY,
-        anchor: [0.5, 1],
-      }),
-    });
-    feature.setStyle(iconStyle);
-
-    return feature;
   }
 
   return container;
 }
 
+//Setting marker feature
+function CreatePointFeature(triplet, icon_src) {
+  const feature = new ol.Feature({
+    type: icon_src == CITY_MARKER_ICON ? 'city' : 'airport',
+    geometry: new ol.geom.Point(ol.proj.fromLonLat([triplet[1][1], triplet[1][0]])),
+    id: triplet[0],
+  });
 
+  const iconStyle = new ol.style.Style({
+    image: new ol.style.Icon({
+      src: icon_src,
+      scale: MARKER_SCALE,
+      opacity: MARKER_OPACITY,
+      anchor: [0.5, 0.5],
+    }),
+  });
+  feature.setStyle(iconStyle);
 
+  return feature;
+}
 
-//const layer = new ol.layer.Vector({
-//
-//});
+// Hoop on
+map.on('pointermove', function(e) {
+  // if (e.dragging) {
+  //     return;
+  // }
 
+  // var pixel = map.getEventPixel(e.originalEvent);
+  // var hit = map.hasFeatureAtPixel(pixel);
+  
+  //map.getTarget().style.cursor = hit ? 'pointer' : '';
 
-// const layer = new ol.layer.Vector({
-//   source: new ol.source.Vector({
-//     features: [
-//       new ol.Feature({
-//         geometry: new ol.geom.Point(ol.proj.fromLonLat([12.550343, 55.665957])),
-//       })
-//     ]
-//   }),
-//   style: new ol.style.Style({
-//     image: new ol.style.Icon({
-//       anchor: [0.5, 1],
-//       crossOrigin: 'anonymous',
-//       src: 'https://ran-guo.github.io/travel-page/images/marker-icon.png',
-//     })
-//   })
-// });
-// map.addLayer(layer);
+  // if (hit) displayPopup(e);
+  displayPopup(e);
+});
+
+const popup = new ol.Overlay({
+  element: document.getElementById('popup'),
+});
+
+map.addOverlay(popup);
+const element = popup.getElement();
+
+function displayPopup(e) {
+  const coordinate = e.coordinate;
+  const hdms = ol.coordinate.toStringHDMS(ol.proj.toLonLat(coordinate));
+  popup.setPosition(coordinate);
+  let popover = bootstrap.Popover.getInstance(element);
+  if (popover) {
+    popover.dispose();
+  }
+  var f = map.forEachFeatureAtPixel(e.pixel, function(f){return f;});
+  var pixel = map.getEventPixel(e.originalEvent);
+  var hit = map.hasFeatureAtPixel(pixel);
+  popover = new bootstrap.Popover(element, {
+    animation: false,
+    container: element,
+    // content: '<p>The location you clicked was: ' + hdms + '</p>',
+    content: hit ? '<p>' + f.get('id') + '</p>' : '',
+    html: true,
+    placement: 'top',
+    // title: 'Welcome to OpenLayers',
+    title: hit ? f.get('type') : '',
+  });
+  if (f && (f.get('type') == 'city' || f.get('type') == 'airport')) {
+    popover.show();
+  }
+  else {
+    popover.hide();
+  }
+}
+
