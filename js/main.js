@@ -213,7 +213,8 @@ function CreateCityIconLayer(){
   });
 
   for (let i = 0; i < cityData.length; i++) {
-    const pointFeature = CreatePointFeature(cityData[i], CITY_MARKER_ICON);
+    const featureData=[cityData[i]["city"],[[cityData[i]["Lat"]],cityData[i]["Lon"]]];
+    const pointFeature = CreatePointFeature(featureData, CITY_MARKER_ICON);
     if (pointFeature) container.getSource()?.addFeature(pointFeature);
   }
 
@@ -239,6 +240,50 @@ function CreatePointFeature(triplet, icon_src) {
   feature.setStyle(iconStyle);
 
   return feature;
+}
+
+function GetCityInfo(cityName){
+  let str = "";
+  str = str + cityName + ":<br>";
+  for (let i = 0; i < cityData.length; i++) {
+    let city = cityData[i];
+    if(city["city"] == cityName){
+      // str = str + "Contry ISO: " + city["iso3"] + "<br>";
+      if(cityName == "Nice" || cityName == "Dalian"){
+        str = str + "Home. <br>";
+      }
+      else{
+        var arrivalTime = city["FREQ"];
+        str = str + "Arrival " + arrivalTime + " time(s).<br>";
+      }
+      str = str + "First arrival :  " + city["1st arrival"] + ".<br>";
+      // var index = [["1st arrival", "1st arrival transport"],["2nd arrival", "2nd arrival transport"], 
+      //               ["3rd arrival", "3rd arrival transport"],["4th arrival", "4th arrival transport"]];
+      // for(let j = 0; j < arrivalTime; j++){
+      //   str = str + "[" + j + "] Arrival at "+ city[index[j][0]] + " by " + city[index[j][1]] + ".<br>";
+      // }
+      break;
+    }
+  }
+  return str;
+}
+
+function GetAirportInfo(airportName){
+  let str = airportName + "<br>";
+  var count = [0, 0];
+  var index = ["Iata_from", "Iata_to"];
+
+  for (let i = 0; i < flightsData.length; i++) {
+    let flight = flightsData[i];  
+    for (let j = 0; j < 2; j++) {
+      if(airportName == flight[index[j]]){
+        count[j]+=1;
+      }
+    }
+  }
+  str = str + "Departure " + count[0] + " time(s).<br>";
+  str = str + "Arrival " + count[1] + " time(s).";
+  return str;
 }
 
 // Hop on
@@ -292,7 +337,7 @@ function displayPopup(e) {
     animation: false,
     container: element,
     // content: '<p>The location you clicked was: ' + hdms + '</p>',
-    content: hit ? '<p>' + f.get('id') + '</p>' : '',
+    content: hit ? (f.get('type') == 'city'? GetCityInfo(f.get('id')) : GetAirportInfo(f.get('id'))) : '',
     html: true,
     placement: 'right',
     // title: 'Welcome to OpenLayers',

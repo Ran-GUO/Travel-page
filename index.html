@@ -5,20 +5,23 @@
     <title>My Travel Diary</title>
     <link rel="stylesheet" href="css/ol.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
     <script src="js/ol.js"></script>
-    <style src="css/style.css"></style>
+    <!-- <style src="css/style.css"></style> -->
 
     <link rel="icon" href="images/travel.png">
   </head>
   <body>
-    <div>
+    <div id=map_checkBoxContainer class=map_checkBox> 
       <input type="checkbox" id="checkBoxFlight" checked onclick="checkBoxFunction()"> show flight routes <br>
       <input type="checkbox" id="checkBoxAirport" checked onclick="checkBoxFunction()"> show airport icons <br>
       <input type="checkbox" id="checkBoxCity" checked onclick="checkBoxFunction()"> show city icons <br>
     </div>
-    <p id="random_id"> Icon is =></p> <!-- for test -->
 
-    <div id="map" style="width:100%;height:90%"></div>
+    <p id="random_id"> Icon is =></p>  <!-- for test -->
+    <div id="map"> </div>
+
 
     <div style="display: none;">
       <div id="popup"></div>

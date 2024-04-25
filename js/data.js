@@ -1,12 +1,12 @@
-function readCSVData(path) {
+function readCSVData(path,spl) {
   let data = [];
   fetch(path)
     .then(response => response.text())
     .then(text => {
       let rows = text.split('\n');
-      let headers = rows[0].split(',');
+      let headers = rows[0].split(spl);
       for (let i = 1; i < rows.length; i++) {
-        let cells = rows[i].split(',');
+        let cells = rows[i].split(spl);
         if (cells.length === headers.length) {
           let obj = {};
           for (let j = 0; j < cells.length; j++) {
@@ -23,20 +23,23 @@ function readCSVData(path) {
     return data;
 }
 
-let flightsData = readCSVData('js/data/flightdiary.csv');
+let flightsData = readCSVData('js/data/flightdiary.csv',',');
+let cityData = readCSVData('js/data/travelCities.csv',';');
 // Use 'data' outside the function (after some delay, since fetch is asynchronous)
 setTimeout(() => {
-  console.log("Global data variable:", flightsData);
+  console.log("Global flights data:", flightsData);
+  console.log("Global city data:", cityData);
+
 }, 300); // Adjust time as needed, assuming 2 seconds here
 
 
 // Data
-var cityData = [
-  ['Dalian', [38.9000, 121.6000]],
-  ['Nice', [43.7034, 7.2663]],
-  ['Malaga', [36.6749, -4.49911]],
-  ['Almaty', [43.3521, 77.0405]],
-  ['Ammam', [31.7226, 35.9932]]];
+// var cityData = [
+//   ['Dalian', [38.9000, 121.6000]],
+//   ['Nice', [43.7034, 7.2663]],
+//   ['Malaga', [36.6749, -4.49911]],
+//   ['Almaty', [43.3521, 77.0405]],
+//   ['Ammam', [31.7226, 35.9932]]];
 
 
 

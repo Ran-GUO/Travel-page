@@ -1,12 +1,30 @@
+
 body {
   margin: 0;
   padding: 0;
+  font-family: "Times New Roman", serif;
+  font-size: 1.0rem;
 }
 
 #map {
-  position: absolute;
+  position: relative;
+
   top: 0;
   right: 0;
   bottom: 0;
-  left: 0; 
+  left: 1%; 
+
+  width:98%;
+  height:90%;
+
+}
+
+#map_checkBox{
+  margin-bottom: 0;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.popover{
+  width: 200px;
+  /* height: 100px; */
 }
