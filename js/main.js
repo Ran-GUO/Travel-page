@@ -1,9 +1,10 @@
 //python3 -m http.server
 //http://localhost:8000/
 
+// Key to access maptiler
 const key = 'ayoPJhNrPgf1eLBVDNY3';
 
-//Setting
+// Setting
 var MAP_CENTER = [52, 30];
 const MAP_ZOOM = 2;
 
@@ -11,16 +12,21 @@ const FLIGHT_TRACE_COLOR = '#975cd1';//'#e8530e';
 const FLIGHT_TRACE_WIDTH = 2;
 const FLIGHT_TRACE_SPEED = 7;
 
-// const Flight_MARKER_ICON = "https://ran-guo.github.io/travel-page/images/airport-marker-icon.png";
-//const CITY_MARKER_ICON = "https://ran-guo.github.io/travel-page/images/city-marker-icon.png";
-const Flight_MARKER_ICON = "images/airport-marker-icon.png";
+// const AIRPORT_MARKER_ICON = "https://ran-guo.github.io/travel-page/images/airport-marker-icon.png";
+// const CITY_MARKER_ICON = "https://ran-guo.github.io/travel-page/images/city-marker-icon.png";
+const AIRPORT_MARKER_ICON = "images/airport-marker-icon.png";
 const CITY_MARKER_ICON = "images/city-marker-icon.png";
 
 
 const MARKER_SCALE = 0.6;
 const MARKER_OPACITY = 0.8;
 
+// Store the value of clicked icon
 var clicked_value = '';
+
+var flightsLayer;
+var airportIconLayer;
+var cityIconLayer;
 
 // Begin Here=======================================
 
@@ -50,25 +56,23 @@ const map = new ol.Map({
   }),
 });
 
-var flightsLayer;
-var flightsIconLayer;
-var cityIconLayer;
-
+// Timeout to make sure csv file has been read completed
 setTimeout(() => {
   // Create and add layers
   flightsLayer = createFlightLayer();
   map.addLayer(flightsLayer);
 
-  flightsIconLayer = CreateFlightIconLayer();
-  map.addLayer(flightsIconLayer);
+  airportIconLayer = CreateFlightIconLayer();
+  map.addLayer(airportIconLayer);
 
   cityIconLayer = CreateCityIconLayer();
   map.addLayer(cityIconLayer);
 
 }, 500);
 
-//Functions ============================================
-//Create flight layer
+// Functions ============================================
+
+// Draw the flown flight routes within the layer
 function createFlightLayer(){
   const style = new ol.style.Style({
     stroke: new ol.style.Stroke({
@@ -99,6 +103,7 @@ function createFlightLayer(){
             const line = new ol.geom.LineString(geometry.coords);
             line.transform('EPSG:4326', 'EPSG:3857');
 
+            // Set feature type to 'flight'
             features.push(
               new ol.Feature({
                 type: 'flight',
@@ -107,6 +112,7 @@ function createFlightLayer(){
               }),
             ); 
           });
+          // Param set to 1, to make the routes appear fasters than i * 50
           addLater(features, 1);
         }
       }
@@ -182,17 +188,17 @@ return flightsLayer;
 }
 
 
-//Create flight marker layer
+// Set flight icon within a layer
 function CreateFlightIconLayer(){
   const container = new ol.layer.Vector({
     source: new ol.source.Vector(),
   });
 
   for (let i = 0; i < flightsData.length; i++) {
-    var index = [["Iata_from","From_lat","From_lon"],["Iata_to","To_lat","To_lon"]];
+    var index = [["Iata_from", "From_lat", "From_lon"], ["Iata_to", "To_lat", "To_lon"]];
     for (let j = 0; j < 2; j++) {
       const featureData=[flightsData[i][index[j][0]],[flightsData[i][index[j][1]],flightsData[i][index[j][2]]]];
-      const pointFeature = CreatePointFeature(featureData, Flight_MARKER_ICON);
+      const pointFeature = CreatePointFeature(featureData, AIRPORT_MARKER_ICON);
       if (pointFeature) container.getSource()?.addFeature(pointFeature);
     }
   }
@@ -200,7 +206,7 @@ function CreateFlightIconLayer(){
   return container;
 }
 
-//Create city marker layer
+// Set city icon within a layer
 function CreateCityIconLayer(){
   const container = new ol.layer.Vector({
     source: new ol.source.Vector(),
@@ -214,10 +220,10 @@ function CreateCityIconLayer(){
   return container;
 }
 
-//Setting marker feature
+// General function to set marker feature
 function CreatePointFeature(triplet, icon_src) {
   const feature = new ol.Feature({
-    type: icon_src == CITY_MARKER_ICON ? 'city' : 'airport',
+    type: icon_src == CITY_MARKER_ICON ? 'city' : 'airport', // to be reviewed in case of more types
     geometry: new ol.geom.Point(ol.proj.fromLonLat([triplet[1][1], triplet[1][0]])),
     id: triplet[0],
   });
@@ -250,10 +256,11 @@ map.on('pointermove', function(e) {
   displayPopup(e);
 });
 
+// Click airport icon to filter
 map.on('click', function(e) {
   clicked_value = displayPopup(e);
-  let test = document.getElementById("random_id");
-  test.innerHTML = "It is => " + clicked_value;
+  let test = document.getElementById("random_id"); // for test
+  test.innerHTML = "Icon is => " + clicked_value; // for test
 
   var checkBoxFlight = document.getElementById("checkBoxFlight");
   if (checkBoxFlight.checked == true){
@@ -316,9 +323,9 @@ function checkBoxFunction() {
   }
 
   if (checkBoxAirport.checked == true){
-    flightsIconLayer.setVisible(true);
+    airportIconLayer.setVisible(true);
   } else {
-    flightsIconLayer.setVisible(false);
+    airportIconLayer.setVisible(false);
   }
 
   if (checkBoxCity.checked == true){
