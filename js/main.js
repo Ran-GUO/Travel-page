@@ -7,15 +7,18 @@ const key = 'ayoPJhNrPgf1eLBVDNY3';
 var MAP_CENTER = [52, 30];
 const MAP_ZOOM = 2;
 
-const FLIGHT_TRACE_COLOR = '#e8530e';
+const FLIGHT_TRACE_COLOR = '#975cd1';//'#e8530e';
 const FLIGHT_TRACE_WIDTH = 2;
 const FLIGHT_TRACE_SPEED = 7;
 
-const Flight_MARKER_ICON = "https://ran-guo.github.io/travel-page/images/airport-marker-icon.png";
-const CITY_MARKER_ICON = "https://ran-guo.github.io/travel-page/images/city-marker-icon.png";
+// const Flight_MARKER_ICON = "https://ran-guo.github.io/travel-page/images/airport-marker-icon.png";
+//const CITY_MARKER_ICON = "https://ran-guo.github.io/travel-page/images/city-marker-icon.png";
+const Flight_MARKER_ICON = "images/airport-marker-icon.png";
+const CITY_MARKER_ICON = "images/city-marker-icon.png";
+
 
 const MARKER_SCALE = 0.6;
-const MARKER_OPACITY = 0.75;
+const MARKER_OPACITY = 0.8;
 
 var clicked_value = '';
 
@@ -251,9 +254,13 @@ map.on('click', function(e) {
   clicked_value = displayPopup(e);
   let test = document.getElementById("random_id");
   test.innerHTML = "It is => " + clicked_value;
-  map.removeLayer(flightsLayer);
-  flightsLayer = createFlightLayer();
-  map.addLayer(flightsLayer);
+
+  var checkBoxFlight = document.getElementById("checkBoxFlight");
+  if (checkBoxFlight.checked == true){
+      map.removeLayer(flightsLayer);
+      flightsLayer = createFlightLayer();
+      map.getLayers().insertAt(1, flightsLayer);
+  }
 })
 
 const popup = new ol.Overlay({
