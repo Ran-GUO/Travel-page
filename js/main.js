@@ -28,7 +28,29 @@ var flightsLayer;
 var airportIconLayer;
 var cityIconLayer;
 
+var filghtsDataFiltered;
+var cityDataFiltered;
+
 // Begin Here=======================================
+//add to html select year form
+var currentYear = new Date().getFullYear(); // 获取当前年份
+var startYear = 2016; // 开始年份
+var endYear = currentYear + 1;
+
+addFormSelectYear();
+
+document.getElementById('yearSelect').addEventListener('change', function() {
+  var selectedYear = parseInt(this.value); // 获取选择的年份
+  // 将选定的年份赋值给 YEAR 变量
+  FILTER_YEAR = selectedYear;
+  // 重新加载页面
+  if (selectedYear != 0) {
+    window.location.href = window.location.pathname + '?year=' + selectedYear;
+  } 
+  else {
+    window.location.href = window.location.pathname;
+  }
+});
 
 // Create map
 const attribution = new ol.control.Attribution({
@@ -59,21 +81,73 @@ const map = new ol.Map({
 // Timeout to make sure csv file has been read completed
 setTimeout(() => {
   // Create and add layers
-  flightsLayer = createFlightLayer();
-  map.addLayer(flightsLayer);
 
-  airportIconLayer = CreateFlightIconLayer();
-  map.addLayer(airportIconLayer);
+  filghtsDataFiltered = flightsDataYearFilter(FILTER_YEAR);
+  cityDataFiltered = cityDataYearFilter(FILTER_YEAR);
 
-  cityIconLayer = CreateCityIconLayer();
-  map.addLayer(cityIconLayer);
+  createLayers(map, filghtsDataFiltered,cityDataFiltered);
 
 }, TIMEOUT);
 
+
 // Functions ============================================
+function createLayers(map, filghtsDataFiltered,cityDataFiltered){
+  flightsLayer = createFlightLayer(filghtsDataFiltered);
+  map.addLayer(flightsLayer);
+
+  airportIconLayer = CreateFlightIconLayer(filghtsDataFiltered);
+  map.addLayer(airportIconLayer);
+
+  cityIconLayer = CreateCityIconLayer(cityDataFiltered);
+  map.addLayer(cityIconLayer);
+}
+
+// select year
+function addFormSelectYear(){
+  document.addEventListener('DOMContentLoaded', function() {
+    var yearSelect = document.getElementById('yearSelect');
+
+    // 动态生成选项
+    for (var year = startYear; year <= endYear; year++) {
+      var option = document.createElement('option');
+      option.value = year;
+      option.textContent = year;
+      yearSelect.appendChild(option);
+    }
+
+    var option = document.createElement('option');
+    option.value = 0;
+    option.textContent = "all";
+    yearSelect.appendChild(option);
+
+    // 设置下拉列表的默认值为all
+    selectedYearParam = urlParams.get('year');
+    yearSelect.value = selectedYearParam==null ? 0 : selectedYearParam;
+  });
+
+  // 获取 URL 参数中的年份值
+  var urlParams = new URLSearchParams(window.location.search);
+  var selectedYearParam = urlParams.get('year');
+  if (selectedYearParam == null) {
+    yearSelect.value = 0;
+    FILTER_YEAR = 0;
+  }
+  else if (selectedYearParam >= startYear && selectedYearParam <= endYear) {
+    var selectedYear = parseInt(selectedYearParam);
+    // 设置下拉列表的值为 URL 参数中的年份值
+    yearSelect.value = selectedYear;
+    // 更新 YEAR 变量的值为 URL 参数中的年份值
+    FILTER_YEAR = selectedYear;
+  }
+  else {
+    alert("Invalid year!");
+    window.location.href = window.location.pathname;
+    // location.reload();
+  }
+}
 
 // Draw the flown flight routes within the layer
-function createFlightLayer(){
+function createFlightLayer(filghtsDataFiltered){
   const style = new ol.style.Style({
     stroke: new ol.style.Stroke({
       color: FLIGHT_TRACE_COLOR,
@@ -83,8 +157,8 @@ function createFlightLayer(){
   
   const flightsSource = new ol.source.Vector({
     loader: function () {
-      for (let i = 0; i < flightsData.length; i++) {
-        const flight = flightsData[i];
+      for (let i = 0; i < filghtsDataFiltered.length; i++) {
+        const flight = filghtsDataFiltered[i];
         // const from = flight[0][1];
         // const to = flight[1][1];
     
@@ -189,15 +263,15 @@ return flightsLayer;
 
 
 // Set flight icon within a layer
-function CreateFlightIconLayer(){
+function CreateFlightIconLayer(filghtsDataFiltered){
   const container = new ol.layer.Vector({
     source: new ol.source.Vector(),
   });
 
-  for (let i = 0; i < flightsData.length; i++) {
+  for (let i = 0; i < filghtsDataFiltered.length; i++) {
     var index = [["Iata_from", "From_lat", "From_lon"], ["Iata_to", "To_lat", "To_lon"]];
     for (let j = 0; j < 2; j++) {
-      const featureData=[flightsData[i][index[j][0]],[flightsData[i][index[j][1]],flightsData[i][index[j][2]]]];
+      const featureData=[filghtsDataFiltered[i][index[j][0]],[filghtsDataFiltered[i][index[j][1]],filghtsDataFiltered[i][index[j][2]]]];
       const pointFeature = CreatePointFeature(featureData, AIRPORT_MARKER_ICON);
       if (pointFeature) container.getSource()?.addFeature(pointFeature);
     }
@@ -207,13 +281,13 @@ function CreateFlightIconLayer(){
 }
 
 // Set city icon within a layer
-function CreateCityIconLayer(){
+function CreateCityIconLayer(cityDataFiltered){
   const container = new ol.layer.Vector({
     source: new ol.source.Vector(),
   });
 
-  for (let i = 0; i < cityData.length; i++) {
-    const featureData=[cityData[i]["city"],[[cityData[i]["Lat"]],cityData[i]["Lon"]]];
+  for (let i = 0; i < cityDataFiltered.length; i++) {
+    const featureData=[cityDataFiltered[i]["city"],[[cityDataFiltered[i]["lat"]],cityDataFiltered[i]["lon"]]];
     const pointFeature = CreatePointFeature(featureData, CITY_MARKER_ICON);
     if (pointFeature) container.getSource()?.addFeature(pointFeature);
   }
@@ -242,11 +316,11 @@ function CreatePointFeature(triplet, icon_src) {
   return feature;
 }
 
-function GetCityInfo(cityName){
+function GetCityInfo(cityName,cityDataFiltered){
   let str = "";
   str = str + cityName + ":<br>";
-  for (let i = 0; i < cityData.length; i++) {
-    let city = cityData[i];
+  for (let i = 0; i < cityDataFiltered.length; i++) {
+    let city = cityDataFiltered[i];
     if(city["city"] == cityName){
       // str = str + "Contry ISO: " + city["iso3"] + "<br>";
       if(cityName == "Nice" || cityName == "Dalian"){
@@ -268,13 +342,13 @@ function GetCityInfo(cityName){
   return str;
 }
 
-function GetAirportInfo(airportName){
+function GetAirportInfo(airportName,filghtsDataFiltered){
   let str = airportName + "<br>";
   var count = [0, 0];
   var index = ["Iata_from", "Iata_to"];
 
-  for (let i = 0; i < flightsData.length; i++) {
-    let flight = flightsData[i];  
+  for (let i = 0; i < filghtsDataFiltered.length; i++) {
+    let flight = filghtsDataFiltered[i];  
     for (let j = 0; j < 2; j++) {
       if(airportName == flight[index[j]]){
         count[j]+=1;
@@ -310,7 +384,7 @@ map.on('click', function(e) {
   var checkBoxFlight = document.getElementById("checkBoxFlight");
   if (checkBoxFlight.checked == true){
       map.removeLayer(flightsLayer);
-      flightsLayer = createFlightLayer();
+      flightsLayer = createFlightLayer(filghtsDataFiltered);
       map.getLayers().insertAt(1, flightsLayer);
   }
 })
@@ -337,7 +411,7 @@ function displayPopup(e) {
     animation: false,
     container: element,
     // content: '<p>The location you clicked was: ' + hdms + '</p>',
-    content: hit ? (f.get('type') == 'city'? GetCityInfo(f.get('id')) : GetAirportInfo(f.get('id'))) : '',
+    content: hit ? (f.get('type') == 'city'? GetCityInfo(f.get('id'),cityDataFiltered) : GetAirportInfo(f.get('id'),filghtsDataFiltered)) : '',
     html: true,
     placement: 'right',
     // title: 'Welcome to OpenLayers',

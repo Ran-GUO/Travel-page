@@ -24,15 +24,57 @@ function readCSVData(path,spl) {
 }
 
 var TIMEOUT = 500;
+var FILTER_YEAR = 0;
 
 let flightsData = readCSVData('js/data/flightdiary.csv',',');
-let cityData = readCSVData('js/data/travelCities.csv',';');
+let cityData = readCSVData('js/data/travelCities.csv',',');
 // Use 'data' outside the function (after some delay, since fetch is asynchronous)
 setTimeout(() => {
   console.log("Global flights data:", flightsData);
   console.log("Global city data:", cityData);
 
 }, TIMEOUT-200); // Adjust time as needed
+
+
+//extract year from date string format yyyy-mm-dd
+function getYearFromDate(date){
+  const d = new Date(date);
+  let year = d.getFullYear();
+  return year;
+}
+
+//Filter objects from flight data with year
+function flightsDataYearFilter(year){
+  let dataset = []; 
+
+  for (let i = 0; i < flightsData.length; i++) {
+    const flight = flightsData[i];
+    let y = getYearFromDate(flight["Date"]);
+    if(year == y || year == 0){
+      dataset.push(flight);
+    }
+  }
+  return dataset;
+}
+
+//Return all cities visited in a certain year
+function cityDataYearFilter(year){
+  let dataset = []; 
+
+  for (let i = 0; i < cityData.length; i++) {
+    const city = cityData[i];
+    var arrivalTime = city["FREQ"];
+    var index = ["1st arrival","2nd arrival", "3rd arrival", "4th arrival"];
+    for(let j = 0; j < arrivalTime; j++){
+      let y = getYearFromDate(city[index[j]]);
+      if(year == y || year == 0){
+        dataset.push(city);
+        break;
+      }
+    }
+  }
+  return dataset;
+}
 
 
 // Data
