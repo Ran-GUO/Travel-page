@@ -23,6 +23,8 @@ function readCSVData(path,spl) {
     return data;
 }
 
+var TIMEOUT = 500;
+
 let flightsData = readCSVData('js/data/flightdiary.csv',',');
 let cityData = readCSVData('js/data/travelCities.csv',';');
 // Use 'data' outside the function (after some delay, since fetch is asynchronous)
@@ -30,7 +32,7 @@ setTimeout(() => {
   console.log("Global flights data:", flightsData);
   console.log("Global city data:", cityData);
 
-}, 300); // Adjust time as needed, assuming 2 seconds here
+}, TIMEOUT-200); // Adjust time as needed
 
 
 // Data

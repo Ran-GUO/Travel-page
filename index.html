@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="css/style.css">
 
     <script src="js/ol.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/arc.js"></script>
+    <script src="js/chart.js"></script>
+    
+
     <!-- <style src="css/style.css"></style> -->
 
     <link rel="icon" href="images/travel.png">
@@ -22,15 +27,28 @@
     <p id="random_id"> Icon is =></p>  <!-- for test -->
     <div id="map"> </div>
 
-
     <div style="display: none;">
       <div id="popup"></div>
     </div>
+
+    <div style="height:100px"> </div>
+
+    <div class="chart_container">
+      <p style="text-align: center;"> count the number of departures and arrivals at each airport </p>
+      <div class="chart_airportbox">
+        <div class="chart_airportsubbox">
+          <canvas id="flights_analysisAirport" ></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
        
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/arc.js"></script>
+
     <script src="js/data.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/dataAnalysis.js"></script>
 
 
     

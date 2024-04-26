@@ -68,7 +68,7 @@ setTimeout(() => {
   cityIconLayer = CreateCityIconLayer();
   map.addLayer(cityIconLayer);
 
-}, 500);
+}, TIMEOUT);
 
 // Functions ============================================
 

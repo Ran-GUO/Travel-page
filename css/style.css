@@ -24,6 +24,19 @@ body {
   background-color: rgba(255, 255, 255, 0.8);
 }
 
+#chart_container {
+  position: relative;
+}
+
+.chart_airportbox{
+  height: 5000px;
+  max-height: 400px;
+  overflow-y: scroll;
+}
+.chart_airportsubbox{
+  height: 5000px;
+}
+
 .popover{
   width: 200px;
   /* height: 100px; */

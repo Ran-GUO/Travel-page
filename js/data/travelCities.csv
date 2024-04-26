@@ -1,5 +1,5 @@
 city;Lat;Lon;iso3;FREQ;1st arrival;1st arrival transport;2nd arrival;2nd arrival transport;3rd arrival;3rd arrival transport;4th arrival;4th arrival transport
-Dalian;38.9000;121.6000;CHN;1;06/10/1997;NA;;;;;;
-Nice;43.7034;7.2663;FRA;1;07/03/2017;F;;;;;;
-Malaga;36.6749;-4.49911;ESP;1;29/12/2023;T;;;;;;
-Paris;48.8567;2.3522;FRA;4;30/10/2017;T;05/08/2020;F;17/05/2022;F;20/02/2024;F
+Dalian;38.9000;121.6000;CHN;1;1997-10-06;NA;;;;;;
+Nice;43.7034;7.2663;FRA;1;2017-03-07;F;;;;;;
+Malaga;36.6749;-4.49911;ESP;1;2023-12-29;T;;;;;;
+Paris;48.8567;2.3522;FRA;4;2017-10-30;T;05/08/2020;F;17/05/2022;F;20/02/2024;F
