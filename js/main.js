@@ -37,20 +37,9 @@ var currentYear = new Date().getFullYear(); // 获取当前年份
 var startYear = 2016; // 开始年份
 var endYear = currentYear + 1;
 
+init();
 addFormSelectYear();
-
-document.getElementById('yearSelect').addEventListener('change', function() {
-  var selectedYear = parseInt(this.value); // 获取选择的年份
-  // 将选定的年份赋值给 YEAR 变量
-  FILTER_YEAR = selectedYear;
-  // 重新加载页面
-  if (selectedYear != 0) {
-    window.location.href = window.location.pathname + '?year=' + selectedYear;
-  } 
-  else {
-    window.location.href = window.location.pathname;
-  }
-});
+addFormYearListener();
 
 // Create map
 const attribution = new ol.control.Attribution({
@@ -89,6 +78,53 @@ setTimeout(() => {
 
 }, TIMEOUT);
 
+// Hop on
+map.on('pointermove', function(e) {
+  // if (e.dragging) {
+  //     return;
+  // }
+
+  // var pixel = map.getEventPixel(e.originalEvent);
+  // var hit = map.hasFeatureAtPixel(pixel);
+  
+  //map.getTarget().style.cursor = hit ? 'pointer' : '';
+
+  // if (hit) displayPopup(e);
+  displayPopup(e);
+});
+
+// Click airport icon to filter
+map.on('click', function(e) {
+  clicked_value = displayPopup(e);
+  let test = document.getElementById("random_id"); // for test
+  test.innerHTML = "Icon is => " + clicked_value; // for test
+
+  var f = map.forEachFeatureAtPixel(e.pixel, function(f){return f;});
+  var pixel = map.getEventPixel(e.originalEvent);
+  var hit = map.hasFeatureAtPixel(pixel);
+
+  var checkBoxFlight = document.getElementById("checkBoxFlight");
+  if (checkBoxFlight.checked == true){
+      map.removeLayer(flightsLayer);
+      flightsLayer = createFlightLayer(filghtsDataFiltered);
+      map.getLayers().insertAt(1, flightsLayer);
+  }
+
+  if(hit){
+    if(f.get('type') == 'city'){ 
+      cityName = f.get('id');
+      showCityHTML(cityName);
+    }
+  }
+
+})
+
+const popup = new ol.Overlay({
+  element: document.getElementById('popup'),
+});
+
+map.addOverlay(popup);
+const element = popup.getElement();
 
 // Functions ============================================
 function createLayers(map, filghtsDataFiltered,cityDataFiltered){
@@ -121,29 +157,48 @@ function addFormSelectYear(){
     yearSelect.appendChild(option);
 
     // 设置下拉列表的默认值为all
-    selectedYearParam = urlParams.get('year');
+    var urlParams = new URLSearchParams(window.location.search);
+    var selectedYearParam = urlParams.get('year');
     yearSelect.value = selectedYearParam==null ? 0 : selectedYearParam;
   });
+}
 
-  // 获取 URL 参数中的年份值
-  var urlParams = new URLSearchParams(window.location.search);
-  var selectedYearParam = urlParams.get('year');
-  if (selectedYearParam == null) {
-    yearSelect.value = 0;
-    FILTER_YEAR = 0;
-  }
-  else if (selectedYearParam >= startYear && selectedYearParam <= endYear) {
-    var selectedYear = parseInt(selectedYearParam);
-    // 设置下拉列表的值为 URL 参数中的年份值
-    yearSelect.value = selectedYear;
-    // 更新 YEAR 变量的值为 URL 参数中的年份值
+function init(){
+    // 获取 URL 参数中的年份值
+    var yearSelect = document.getElementById('yearSelect');
+    var urlParams = new URLSearchParams(window.location.search);
+    var selectedYearParam = urlParams.get('year');
+    if (selectedYearParam == null) {
+      yearSelect.value = 0;
+      FILTER_YEAR = 0;
+    }
+    else if (selectedYearParam >= startYear && selectedYearParam <= endYear) {
+      var selectedYear = parseInt(selectedYearParam);
+      // 设置下拉列表的值为 URL 参数中的年份值
+      yearSelect.value = selectedYear;
+      // 更新 YEAR 变量的值为 URL 参数中的年份值
+      FILTER_YEAR = selectedYear;
+    }
+    else {
+      alert("Invalid year!");
+      window.location.href = window.location.pathname;
+      // location.reload();
+    }
+}
+
+function addFormYearListener(){
+  document.getElementById('yearSelect').addEventListener('change', function() {
+    var selectedYear = parseInt(this.value); // 获取选择的年份
+    // 将选定的年份赋值给 YEAR 变量
     FILTER_YEAR = selectedYear;
-  }
-  else {
-    alert("Invalid year!");
-    window.location.href = window.location.pathname;
-    // location.reload();
-  }
+    // 重新加载页面
+    if (selectedYear != 0) {
+      window.location.href = window.location.pathname + '?year=' + selectedYear;
+    } 
+    else {
+      window.location.href = window.location.pathname;
+    }
+  });
 }
 
 // Draw the flown flight routes within the layer
@@ -360,41 +415,7 @@ function GetAirportInfo(airportName,filghtsDataFiltered){
   return str;
 }
 
-// Hop on
-map.on('pointermove', function(e) {
-  // if (e.dragging) {
-  //     return;
-  // }
 
-  // var pixel = map.getEventPixel(e.originalEvent);
-  // var hit = map.hasFeatureAtPixel(pixel);
-  
-  //map.getTarget().style.cursor = hit ? 'pointer' : '';
-
-  // if (hit) displayPopup(e);
-  displayPopup(e);
-});
-
-// Click airport icon to filter
-map.on('click', function(e) {
-  clicked_value = displayPopup(e);
-  let test = document.getElementById("random_id"); // for test
-  test.innerHTML = "Icon is => " + clicked_value; // for test
-
-  var checkBoxFlight = document.getElementById("checkBoxFlight");
-  if (checkBoxFlight.checked == true){
-      map.removeLayer(flightsLayer);
-      flightsLayer = createFlightLayer(filghtsDataFiltered);
-      map.getLayers().insertAt(1, flightsLayer);
-  }
-})
-
-const popup = new ol.Overlay({
-  element: document.getElementById('popup'),
-});
-
-map.addOverlay(popup);
-const element = popup.getElement();
 
 function displayPopup(e) {
   const coordinate = e.coordinate;
@@ -427,6 +448,35 @@ function displayPopup(e) {
   return hit ? f.get('id') : '';
 }
 
+function showCityHTML(cityName){
+  let newPage = 'cityPages/'+ cityName +'.html';
+
+  var request;
+  if(window.XMLHttpRequest){
+    request = new XMLHttpRequest();
+  }
+  else{
+    request = new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  request.open('GET', newPage, false);
+  request.send(); // there will be a 'pause' here until the response to come.
+  // the object request will be actually modified
+  if (request.status != 404) {
+      showNotification(cityName);
+  }
+  
+  function showNotification(cityName) {
+    let newPage = 'cityPages/'+ cityName +'.html';
+    var notification = document.getElementById('notification');
+    var content = 'More details：<br>';
+    content += '<a href="'+ newPage + '" target="_blank">'+ cityName + '</a>';
+    notification.innerHTML = content;
+    notification.style.display = 'block'; // 显示通知栏
+    setTimeout(function() {
+      notification.style.display = 'none'; // 3秒后隐藏通知栏
+    }, 5000);
+  }
+}
 
 function checkBoxFunction() {
   // Get the checkbox
