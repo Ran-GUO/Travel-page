@@ -449,7 +449,7 @@ function displayPopup(e) {
 }
 
 function showCityHTML(cityName){
-  let newPage = 'cityPages/'+ cityName +'.html';
+  let newPage = 'city/'+ normalizeCityName(cityName) +'.html';
 
   var request;
   if(window.XMLHttpRequest){
@@ -464,16 +464,31 @@ function showCityHTML(cityName){
   if (request.status != 404) {
       showNotification(cityName);
   }
-  
+  function normalizeCityName(cityName){
+    let input = cityName.toLowerCase();
+    // 使用正则表达式获取空格和括号前的一部分
+    var match = input.match(/([^\s(]+)/);
+    var normalizeName;
+    if (match && match[1]) {
+      normalizeName = match[1];
+    } else {
+      // 如果没有匹配到有效的部分，则返回空字符串
+      normalizeName = '';
+    }
+    console.log(normalizeName);
+    return normalizeName;
+
+  }
+
   function showNotification(cityName) {
-    let newPage = 'cityPages/'+ cityName +'.html';
+    let newPage = 'city/'+ normalizeCityName(cityName) +'.html';
     var notification = document.getElementById('notification');
     var content = 'More details：<br>';
     content += '<a href="'+ newPage + '" target="_blank">'+ cityName + '</a>';
     notification.innerHTML = content;
     notification.style.display = 'block'; // 显示通知栏
     setTimeout(function() {
-      notification.style.display = 'none'; // 3秒后隐藏通知栏
+      notification.style.display = 'none'; // 5秒后隐藏通知栏
     }, 5000);
   }
 }

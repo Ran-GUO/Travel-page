@@ -1,0 +1,66 @@
+
+
+.image_container {
+  width: 100vw; /* 可根据需要调整宽度 */
+  height: 100vh; /* 自动调整高度 */
+  max-width: 100vw; /* 图片最大宽度为容器的宽度 */
+  display: block; /* 使容器成为块级元素 */
+  overflow: hidden; /* 隐藏超出容器的部分 */
+  object-fit: cover; /* 保持原始比例并填充容器 */
+}
+
+.memory_container {
+  float: left;
+  padding: 0;
+  overflow-y: scroll;
+}
+
+.memory_image_container {
+  display: block; /* 使容器成为块级元素 */
+  overflow: hidden; /* 隐藏超出容器的部分 */
+  object-fit: cover; /* 保持原始比例并填充容器 */
+}
+
+
+/* @media only screen and (max-width: 1200px) {
+  .memory_image_container .memory_container {
+    .memory_container {
+      max-height: 500px;
+    }
+    .memory_text_container {
+      height: 50px;
+    }
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .memory_container {
+    max-height: 500px;
+  }
+  .memory_text_container {
+    height: 50px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .memory_container {
+    max-height: 650px;
+  }
+  .memory_text_container {
+    height: 100px;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .memory_container {
+    max-height: 650px;
+  }
+  .memory_text_container {
+    height: 100px;
+  }
+}  */
+
+
+
+
+
