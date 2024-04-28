@@ -15,12 +15,24 @@
 <body>
     <!-- Header Block Start -->
     <header id="site-header">
-        <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
             <div class="container">
                 <a class="navbar-brand fw-bold" href=""><i class="fa-solid fa-plane"></i> Live in Nice </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav  mx-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="../index.html">Global</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Cities</a>
+                        <ul id="city_sites" class="dropdown-menu">
+                        </ul>
+                    </li>
+                </ul>
             </div>
         </nav>
     </header>
@@ -71,20 +83,26 @@
             </button>
         </div>
         <section id="section-2">
+            <div class="row">
+                <img id= "transport_flight" class="col-4 transport_container" style="display: none" src="images/common/flight.gif" alt="">
+                <img id= "transport_train" class="col-4 transport_container" style="display: none" src="images/common/train.gif" alt="">
+                <img id= "transport_bus" class="col-4 transport_container" style="display: none" src="images/common/bus.gif" alt="">
+            </div>
             <div class="py-5">
                 <div class="container py-5">
                     <div class="row">
-                        <div class="col-5">
+                        <div class="col-12 col-xs-12 col-sm-12 col-md-4 col-lg-4">
                             <h2 class="fw-bold pb-2">About Nice</h2>
-                            <p>aaaaa</p>
-                            <p>bbbbb</p>
+                            <p>Country : France</p>
+                            <p id="printCityByJS"></p>
+                            <p></p>
                         </div>
-                        <div class="col-7">
+                        <div class="col-12 col-xs-12 col-sm-12 col-md-8 col-lg-8">
                             <div class="aos-item" data-aos="fade-up" data-aos-delay="200">
                                 <div class="aos-item__inner">
                                     <img title="" class="rounded w-100" src="images/nice/about.png" alt="">
                                     <div class="caption">
-                                        <figcaption class="figure-caption py-2">Polytech Nice Sophia</figcaption>
+                                        <figcaption class="figure-caption py-2">About...</figcaption>
                                     </div>
                                 </div>
                             </div>
@@ -112,8 +130,6 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="col "></div>
-                        <div class="col "></div>
                     </div>
                 </div>
             </div>
@@ -134,7 +150,11 @@
     <script src="../js/bootstrap.bundle.min.js"></script>
 
     <!-- Custom JS -->
+    <!-- <script src="../js/data.js"></script> -->
     <script src="../js/city.js"></script>
+    <script>
+        printCityOnHtml('printCityByJS',"Nice");
+    </script>
     
 </body>
 

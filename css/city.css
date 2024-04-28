@@ -1,4 +1,10 @@
 
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Times New Roman", serif;
+  font-size: 1.2rem;
+}
 
 .image_container {
   width: 100vw; /* 可根据需要调整宽度 */
@@ -19,6 +25,13 @@
   display: block; /* 使容器成为块级元素 */
   overflow: hidden; /* 隐藏超出容器的部分 */
   object-fit: cover; /* 保持原始比例并填充容器 */
+}
+.transport_container{
+  width: auto;
+  height:100px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 
