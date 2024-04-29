@@ -68,7 +68,7 @@ function printCityToString(city){
     var index = [["1st arrival", "1st arrival transport"],["2nd arrival", "2nd arrival transport"], 
                   ["3rd arrival", "3rd arrival transport"],["4th arrival", "4th arrival transport"]];
     for(let j = 0; j < arrivalTime; j++){
-      str = str + "["+ city[index[j][0]] + "] Arriving by  " + getTransportName(city[index[j][1]]) + ".<br>";
+      str = str + "["+ city[index[j][0]] + "] Arrived by  " + getTransportName(city[index[j][1]]) + ".<br>";
     }
     return str;
 
