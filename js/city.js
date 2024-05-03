@@ -1,5 +1,5 @@
     
-const cities = ["nice", "lisbon", "barcelona"];
+const cities = ["barcelona","èze","lisbon", "nice"];
 var TIMEOUT = 500;
 let cityData = readCSVData('../js/data/travelCities.csv',',');
 addCityPages();
