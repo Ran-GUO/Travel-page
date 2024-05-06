@@ -4,39 +4,155 @@ body {
   padding: 0;
   font-family: "Times New Roman", serif;
   font-size: 1.0rem;
+  
 }
 
-#map {
+/***************************************
+ Map Containner and inner elements
+ ***************************************/
+
+.map_container {
   position: relative;
 
   top: 0;
   right: 0;
   bottom: 0;
-  left: 1%; 
+  left: 0; 
 
-  width:98%;
-  height:90%;
+  background-color: #044e77;
+  width:100%;
+  height:100%;
+  
+  border-radius: 10px; /* 边框圆角半径 */
 
 }
 
-#map_checkBox{
-  margin-bottom: 0;
-  background-color: rgba(255, 255, 255, 0.8);
-}
-
-#chart_container {
+.map_header{
   position: relative;
+	
+  top: 2%;
+  right: 0;
+  bottom: 0;
+  left: 2%; 
+  
+  width:96%;
+  height:7%;
+  
+  color: white;
+  font-size: 2rem;
+  text-align: center;
+
+  
+  border-width: 4px; /* 边框宽度 */
+  border-style: solid; /* 边框样式，可以是 solid、dashed、dotted、double、groove 等 */
+  border-color: white; /* 边框颜色 */
+  border-radius: 10px; /* 边框圆角半径 */
 }
 
-.chart_box_horizontal{
-  max-height: 400px;
+.yearSelector{
+	
+  margin-bottom: 0;
+  position: absolute;
+  background-color: #044e77;
+  top: 20%;
+  right: 1%;
+  z-index: 1; 
+  
+  text-align: center;
+  width:120px;
+  height:30px;
+  
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: white;
+}
+
+#map {
+  position: relative;
+
+  top: 1%;
+  right: 0;
+  bottom: 0;
+  left: 2%; 
+
+  width:96%;
+  height:84%;
+  
+  border-width: 4px; /* 边框宽度 */
+  border-style: solid; /* 边框样式，可以是 solid、dashed、dotted、double、groove 等 */
+  border-color: white; /* 边框颜色 */
+  border-radius: 10px; /* 边框圆角半径 */
+
+}
+
+
+.map_checkBox{
+  margin-bottom: 0;
+  position: absolute;
+  background-color: #044e77;
+  bottom: 5%;
+  right: 1%;
+  z-index: 1; 
+ 
+  font-family: "Times New Roman", serif;
+  font-size: 1.0rem;
+  font-weight: bold;
+  color: white;
+  
+  border-width: 1px; /* 边框宽度 */
+  border-style: solid; /* 边框样式，可以是 solid、dashed、dotted、double、groove 等 */
+  border-color: white; /* 边框颜色 */
+  border-radius: 1px; /* 边框圆角半径 */
+}
+
+
+
+
+/***************************************
+ Chart Containner and inner elements
+ ***************************************/
+ 
+.charts_flights_container{
+  background-color: #f5f9ff;
+
+}
+
+.charts_cities_container{
+  background-color: #fffbf5;
+
+}
+
+.charts_header{
+  position: relative;
+  top: 2%;
+  right: 0;
+  bottom: 0;
+  left: 2%; 
+  
+  width:96%;
+  height:7%;
+  
+  color: black;
+  font-size: 2rem;
+  text-align: center;
+
+
+}
+
+.chart_container {
+  height: 500px;
+  position: relative;
+  background-color: white;
+  
+  border-width: 2px; /* 边框宽度 */
+  border-style: solid; /* 边框样式，可以是 solid、dashed、dotted、double、groove 等 */
+  border-color: #ececec;
+  border-radius: 10px; /* 边框圆角半径 */
+
   overflow-y: scroll;
-}
-
-.chart_box_vertical{
-  /* max-width: 400px;  */
   overflow-x: scroll;
 }
+ 
 
 .chart_airportsubbox{
   /* height: 5000px; Dynamical set in dataAnalysis.js */
@@ -57,16 +173,20 @@ body {
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  background-color: #333;
-  color: #fff;
+  background-color: #f5f9ff;
+  color: #000;
   padding: 10px 20px;
-  border-bottom: 2px solid #fff;
+  border-bottom: 2px solid #000;
   z-index: 9999;
   display: none; /* 默认隐藏通知栏 */
 }
 
 /* 链接样式 */
 .notification a {
-  color: #fff;
+  color: #000;
   text-decoration: underline;
+}
+
+#site-header{
+  font-size: 1.2rem;
 }

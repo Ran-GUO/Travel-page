@@ -97,7 +97,7 @@ map.on('pointermove', function(e) {
 map.on('click', function(e) {
   clicked_value = displayPopup(e);
   let test = document.getElementById("random_id"); // for test
-  test.innerHTML = "Icon is => " + clicked_value; // for test
+  // test.innerHTML = "Icon is => " + clicked_value; // for test
 
   var f = map.forEachFeatureAtPixel(e.pixel, function(f){return f;});
   var pixel = map.getEventPixel(e.originalEvent);
