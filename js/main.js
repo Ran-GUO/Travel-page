@@ -136,6 +136,8 @@ function createLayers(map, filghtsDataFiltered,cityDataFiltered){
 
   cityIconLayer = CreateCityIconLayer(cityDataFiltered);
   map.addLayer(cityIconLayer);
+  
+  checkBoxFunction();
 }
 
 // select year

@@ -10,6 +10,34 @@ body {
 /***************************************
  Map Containner and inner elements
  ***************************************/
+@media only screen and (max-height: 768px) {
+  .map_header{
+	font-size: 1.6rem;
+  }
+  .yearSelector{
+	font-size: 0.8rem;
+	height:20px;
+	width: 100px;
+  }
+  .map_checkBox{
+	font-size: 0.6rem; 
+  }
+}
+
+@media screen and (min-height: 768px) {
+  .map_header{
+	font-size: 2.2rem;
+  }
+  .yearSelector{
+	font-size: 1.2rem;
+	height:30px;
+	width: 120px;
+  }
+  .map_checkBox{
+	font-size: 1.0rem; 
+  }
+}
+
 
 .map_container {
   position: relative;
@@ -29,42 +57,24 @@ body {
 
 .map_header{
   position: relative;
-	
+
   top: 2%;
   right: 0;
   bottom: 0;
   left: 2%; 
   
   width:96%;
-  height:7%;
+  height:8%;
   
   color: white;
-  font-size: 2rem;
   text-align: center;
+  font-weight: bold;
 
   
   border-width: 4px; /* 边框宽度 */
   border-style: solid; /* 边框样式，可以是 solid、dashed、dotted、double、groove 等 */
   border-color: white; /* 边框颜色 */
   border-radius: 10px; /* 边框圆角半径 */
-}
-
-.yearSelector{
-	
-  margin-bottom: 0;
-  position: absolute;
-  background-color: #044e77;
-  top: 20%;
-  right: 1%;
-  z-index: 1; 
-  
-  text-align: center;
-  width:120px;
-  height:30px;
-  
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: white;
 }
 
 #map {
@@ -76,7 +86,7 @@ body {
   left: 2%; 
 
   width:96%;
-  height:84%;
+  height:80%;
   
   border-width: 4px; /* 边框宽度 */
   border-style: solid; /* 边框样式，可以是 solid、dashed、dotted、double、groove 等 */
@@ -85,6 +95,25 @@ body {
 
 }
 
+.yearSelector{
+	
+  position: absolute;
+  z-index: 1; 
+  background-color: #044e77;
+  
+  text-align: center;
+  font-weight: bold;
+  color: white;
+  
+  top: 1%;
+  right: 1%;
+  z-index: 1; 
+  
+  border-width: 1px; /* 边框宽度 */
+  border-style: solid; /* 边框样式，可以是 solid、dashed、dotted、double、groove 等 */
+  border-color: white; /* 边框颜色 */
+  border-radius: 1px; /* 边框圆角半径 */
+}
 
 .map_checkBox{
   margin-bottom: 0;
@@ -95,7 +124,6 @@ body {
   z-index: 1; 
  
   font-family: "Times New Roman", serif;
-  font-size: 1.0rem;
   font-weight: bold;
   color: white;
   
@@ -112,16 +140,34 @@ body {
  Chart Containner and inner elements
  ***************************************/
  
-.charts_flights_container{
+@media only screen and (max-width: 768px) {
+  .charts_super_container{
+	grid-template-columns: repeat(auto-fit, 85vw);/*auto-fit*/
+  }
+  .chart_container {
+	height: 85vw;
+	width: 85vw;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .charts_super_container{
+	grid-template-columns: repeat(auto-fit, 30vw);/*auto-fit*/
+  }
+  .chart_container {
+	height: 500px;
+	width: 500px;
+  }
+}
+
+ 
+.chart_section{
   background-color: #f5f9ff;
+  padding-bottom: 100px;
+  padding-top: 100px;
 
 }
-
-.charts_cities_container{
-  background-color: #fffbf5;
-
-}
-
+ 
 .charts_header{
   position: relative;
   top: 2%;
@@ -130,7 +176,7 @@ body {
   left: 2%; 
   
   width:96%;
-  height:7%;
+  height:80px;
   
   color: black;
   font-size: 2rem;
@@ -139,8 +185,19 @@ body {
 
 }
 
+.charts_super_container{
+  padding-top: 50px;
+  padding-bottom: 50px;
+  padding-left: 2%;
+  padding-right: 2%;
+  display: grid;
+  grid-gap: 20px; /* 图标之间的间距 */
+  justify-content: center;
+  align-items: center;
+}
+
+
 .chart_container {
-  height: 500px;
   position: relative;
   background-color: white;
   
@@ -149,8 +206,11 @@ body {
   border-color: #ececec;
   border-radius: 10px; /* 边框圆角半径 */
 
+  padding: 1vw;
+  
   overflow-y: scroll;
   overflow-x: scroll;
+  
 }
  
 

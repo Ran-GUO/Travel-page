@@ -3,13 +3,22 @@ Chart.register(ChartDataLabels);
 const BARWIDTH = 15;
 
 setTimeout(() => {
-  showChart(FILTER_YEAR);
+
 }, TIMEOUT); 
 
 
-function showChart(year){
-  chart_flights_analysisAirport(year);
-  chart_cities_analysisCities(year);
+function flights_showChart(){
+	year = FILTER_YEAR;
+	setTimeout(() => {
+		chart_flights_analysisAirport(year);
+	}, TIMEOUT);
+}
+
+function cities_showChart(){
+	year = FILTER_YEAR;
+	setTimeout(() => {
+		chart_cities_analysisCities(year);
+	}, TIMEOUT);
 }
 
 
@@ -197,7 +206,7 @@ function chart_cities_analysisCities(year){
   const size = (cityLabels.length > 2? cityLabels.length: 3) * 5 * BARWIDTH;
   const citysubbox = document.querySelector('.chart_citysubbox');
   citysubbox.style.width = size + 'px';
-  citysubbox.style.height = '500px';
+  citysubbox.style.height = '350px';
   // console.log(citysubbox.style.height);
 
 

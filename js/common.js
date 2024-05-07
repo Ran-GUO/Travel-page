@@ -3,8 +3,7 @@
 const cities = ["barcelona","èze","lisbon", "monaco", "nice"];
 
 
-function addCityPages(base_path){
-  let str="";
+function addCityPages(base_path,str){
   for(let i = 0; i < cities.length; i++){
     str = str + "<li><a class=\"dropdown-item\" href=\"" + base_path + cities[i] + ".html\">" + cities[i] + "</a></li>";
   }

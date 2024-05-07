@@ -2,7 +2,7 @@
     
 var TIMEOUT = 500;
 let cityData = readCSVData('../js/data/travelCities.csv',',');
-addCityPages("");
+addCityPages("","<li><a class=\"dropdown-item\" href=\"../cities.html\">CITIES MAP</a></li>");
 fix_footer();
 
 

@@ -37,16 +37,11 @@
 					<li class="nav-item">
                         <a class="nav-link active" aria-current="" href="flights.html">Flights</a>
                     </li>
-					<li class="nav-item dropdown">
+                    <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Cities</a>
                         <ul id="city_sites" class="dropdown-menu">
                         </ul>
                     </li>
-					<!-- <li class="nav-item"> -->
-                        <!-- <a class="nav-link active" aria-current="" href="cities.html">Cities</a> -->
-                    <!-- </li> -->
-
-
                 </ul>
             </div>
         </nav>
@@ -62,7 +57,7 @@
 		
 			<div style="height:8%"> </div>
 			<div class="map_header">
-				<p> Travel Map </p>
+				<p> Travel Map (Cities) </p>
 
 			</div>
 
@@ -75,8 +70,8 @@
 					</form>
 				</div>
 				<div id="map_checkBoxContainer" class="map_checkBox"> 
-					<input type="checkbox" id="checkBoxFlight" checked onclick="checkBoxFunction()"> show flight routes <br>
-					<input type="checkbox" id="checkBoxAirport" checked onclick="checkBoxFunction()"> show airport icons <br>
+					<input type="checkbox" id="checkBoxFlight"  onclick="checkBoxFunction()"> show flight routes <br>
+					<input type="checkbox" id="checkBoxAirport"  onclick="checkBoxFunction()"> show airport icons <br>
 					<input type="checkbox" id="checkBoxCity" checked onclick="checkBoxFunction()"> show city icons <br>
 				</div>
 
@@ -88,14 +83,43 @@
 		<div style="display: none;">
 		  <div id="popup"></div>
 		</div>
+
+		<!-- Cities chart -->
+		<div class="chart_section">
+			<div class="charts_header">
+				<p> Cities Charts </p>
+			</div>
+			<div class="charts_super_container">
+				<div class="chart_container">
+					<p style="text-align: center;"> count the number of arrivals at each city </p>
+					<div class="chart_citysubbox">
+					  <canvas id="cities_analysisCities" ></canvas>
+					</div>
+				</div>
+				<div class="chart_container">
+					<p style="text-align: center;"> City chart 2 (Comming soon)</p>
+					<div class="">
+					</div>
+				</div>
+				<div class="chart_container">
+					<p style="text-align: center;"> City chart 3 (Comming soon) </p>
+					<div class="">
+					</div>
+				</div>
+			</div>
+
+		</div>
+
 		
 	  </div>
 		<script src="js/common.js"></script>
 		<script src="js/data.js"></script>
 		<script src="js/main.js"></script>
+		<script src="js/dataAnalysis.js"></script>
 		<script src="js/index.js"></script>
 		<script> 
-			global_format_script();
+			cities_showChart();
+			cities_format_script();
 		</script>
 
 

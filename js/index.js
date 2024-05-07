@@ -1,4 +1,17 @@
 // Javascript for index.html
 
 // Guide Bar
-addCityPages("city\\");
+function cities_format_script(){
+    let str="<li><a class=\"dropdown-item\" href=\"cities.html\">CITIES MAP</a></li>";
+	addCityPages("city\\",str);
+}
+
+function flights_format_script(){
+	let str="<li><a class=\"dropdown-item\" href=\"cities.html\">CITIES MAP</a></li>";
+	addCityPages("city\\",str);
+}
+
+function global_format_script(){
+	let str="<li><a class=\"dropdown-item\" href=\"cities.html\">CITIES MAP</a></li>";
+	addCityPages("city\\",str);
+}
