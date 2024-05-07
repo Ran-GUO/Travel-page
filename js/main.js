@@ -127,7 +127,7 @@ map.addOverlay(popup);
 const element = popup.getElement();
 
 // Functions ============================================
-function createLayers(map, filghtsDataFiltered,cityDataFiltered){
+function createLayers(map, filghtsDataFiltered,cityDataFiltered) {
   flightsLayer = createFlightLayer(filghtsDataFiltered);
   map.addLayer(flightsLayer);
 
@@ -165,7 +165,7 @@ function addFormSelectYear(){
   });
 }
 
-function init(){
+function init() {
     // 获取 URL 参数中的年份值
     var yearSelect = document.getElementById('yearSelect');
     var urlParams = new URLSearchParams(window.location.search);
@@ -188,7 +188,7 @@ function init(){
     }
 }
 
-function addFormYearListener(){
+function addFormYearListener() {
   document.getElementById('yearSelect').addEventListener('change', function() {
     var selectedYear = parseInt(this.value); // 获取选择的年份
     // 将选定的年份赋值给 YEAR 变量
@@ -204,7 +204,7 @@ function addFormYearListener(){
 }
 
 // Draw the flown flight routes within the layer
-function createFlightLayer(filghtsDataFiltered){
+function createFlightLayer(filghtsDataFiltered) {
   const style = new ol.style.Style({
     stroke: new ol.style.Stroke({
       color: FLIGHT_TRACE_COLOR,

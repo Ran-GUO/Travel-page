@@ -11,7 +11,6 @@
 ## Ref for database 
 [IATA-ICAO](https://github.com/ip2location/ip2location-iata-icao)  
 [World Cities Database](https://simplemaps.com/data/world-cities)  
-[Colab: exported data handling (restricted entry)](https://colab.research.google.com/drive/1jtI6pTdXk62n59f51ZksaECD1_6YQtoN) 
 
 ## img & icon
 [icons](https://icones8.fr/icons)  

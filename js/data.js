@@ -4,7 +4,7 @@ var TIMEOUT = 500;
 var FILTER_YEAR = 0;
 
 let flightsData = readCSVData('js/data/flightdiary.csv',',');
-let cityData = readCSVData('js/data/travelCities.csv',',');
+let cityData = readCSVData('js/data/travelcities.csv',',');
 // Use 'data' outside the function (after some delay, since fetch is asynchronous)
 setTimeout(() => {
   console.log("Global flights data:", flightsData);

@@ -7,14 +7,15 @@ setTimeout(() => {
 }, TIMEOUT); 
 
 
-function flights_showChart(){
+function flights_showChart() {
 	year = FILTER_YEAR;
 	setTimeout(() => {
 		chart_flights_analysisAirport(year);
+    flights_totalDistance(year); // could have a better place...
 	}, TIMEOUT);
 }
 
-function cities_showChart(){
+function cities_showChart() {
 	year = FILTER_YEAR;
 	setTimeout(() => {
 		chart_cities_analysisCities(year);
@@ -22,8 +23,8 @@ function cities_showChart(){
 }
 
 
-//Draw chart to count the number of departures and arrivals at each airport
-function chart_flights_analysisAirport(year){
+// Draw chart to count the number of departures and arrivals at each airport
+function chart_flights_analysisAirport(year) {
   const ctx = document.getElementById('flights_analysisAirport');
   let {airportLabels, totalTimes, departureTimes, arrivalTimes} = flights_analysisAirport(year);
   new Chart(ctx, {
@@ -101,7 +102,7 @@ function chart_flights_analysisAirport(year){
 
   // Data analysis function
   // count the number of departures and arrivals at each airport
-  function flights_analysisAirport(year){
+  function flights_analysisAirport(year) {
     // format: {["NCE" : [total time, departure time, arrival time]],...};
     let dataset = {}; 
     let flights = flightsDataYearFilter(year);
@@ -109,21 +110,21 @@ function chart_flights_analysisAirport(year){
     for (let i = 0; i < flights.length; i++) {
       const flight = flights[i];
  
-      let airportName = [flight["Iata_from"],flight["Iata_to"]];
+      let airportName = [flight["Iata_from"], flight["Iata_to"]];
       //From
-      if(airportName[0] in dataset){
+      if (airportName[0] in dataset) {
         dataset[airportName[0]][0] += 1;
         dataset[airportName[0]][1] += 1;
       }
-      else{
+      else {
         dataset[airportName[0]] = [1,1,0];
       }
       //To
-      if(airportName[1] in dataset){
+      if (airportName[1] in dataset) {
         dataset[airportName[1]][0] += 1;
         dataset[airportName[1]][2] += 1;
       }
-      else{
+      else {
         dataset[airportName[1]] = [1,0,1];
       }
     }
@@ -151,8 +152,7 @@ function chart_flights_analysisAirport(year){
   }
 }
 
-
-//Draw chart to count the number of arrivals at each city
+// Draw chart to count the number of arrivals at each city
 function chart_cities_analysisCities(year){
   const ctx = document.getElementById('cities_analysisCities');
   let {cityLabels,arrivalTimes} = cities_analysisCities(year);
@@ -217,7 +217,7 @@ function chart_cities_analysisCities(year){
     let dataset = {}; 
     let cities = cityDataYearFilter(year);
 
-    var index = ["1st arrival","2nd arrival", "3rd arrival", "4th arrival"];
+    var index = ["1st arrival", "2nd arrival", "3rd arrival", "4th arrival"];
     for (let i = 0; i < cities.length; i++) {
       const city = cities[i];
       var arrivalTime = city["FREQ"];
@@ -243,4 +243,18 @@ function chart_cities_analysisCities(year){
     return {cityLabels, arrivalTimes};
 
   }
+}
+
+function flights_totalDistance(year) {
+
+  let flights = flightsDataYearFilter(year);
+  let dist = 0;
+
+  for (let i = 0; i < flights.length; i++) {
+    dist += parseInt(flights[i]["Dist"]);
+  }
+
+  let element = document.getElementById("total_distance");
+  element.innerHTML = dist;
+
 }
