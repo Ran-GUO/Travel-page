@@ -127,7 +127,7 @@ map.addOverlay(popup);
 const element = popup.getElement();
 
 // Functions ============================================
-function createLayers(map, filghtsDataFiltered,cityDataFiltered) {
+function createLayers(map, filghtsDataFiltered, cityDataFiltered) {
   flightsLayer = createFlightLayer(filghtsDataFiltered);
   map.addLayer(flightsLayer);
 

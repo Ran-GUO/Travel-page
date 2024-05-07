@@ -36,6 +36,32 @@ body {
 }
 
 
+
+
+#map {
+  position: relative;
+
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0; 
+  
+  padding-bottom: 50px;
+  padding-left: 5%;
+  padding-right: 5%;
+
+  width:100vw;
+  height:60vh;
+  
+  justify-content: center;
+  align-items: center;
+  
+  border-width: 4px; /* 边框宽度 */
+  border-style: solid; /* 边框样式，可以是 solid、dashed、dotted、double、groove 等 */
+  border-color: white; /* 边框颜色 */
+  border-radius: 10px; /* 边框圆角半径 */
+}
+
 /* @media only screen and (max-width: 1200px) {
   .memory_image_container .memory_container {
     .memory_container {

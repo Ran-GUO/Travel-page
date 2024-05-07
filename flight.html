@@ -37,16 +37,14 @@
 					<li class="nav-item">
                         <a class="nav-link active" aria-current="" href="flight.html">Flights</a>
                     </li>
+					<!-- <li class="nav-item"> -->
+                        <!-- <a class="nav-link active" aria-current="" href="cit.html">Cities</a> -->
+                    <!-- </li> -->
 					<li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Cities</a>
                         <ul id="city_sites" class="dropdown-menu">
                         </ul>
                     </li>
-					<!-- <li class="nav-item"> -->
-                        <!-- <a class="nav-link active" aria-current="" href="cities.html">Cities</a> -->
-                    <!-- </li> -->
-
-
                 </ul>
             </div>
         </nav>
@@ -62,7 +60,7 @@
 		
 			<div style="height:8%"> </div>
 			<div class="map_header">
-				<p> Travel Map </p>
+				<p> Travel Map (Flights) </p>
 
 			</div>
 
@@ -77,7 +75,7 @@
 				<div id="map_checkBoxContainer" class="map_checkBox"> 
 					<input type="checkbox" id="checkBoxFlight" checked onclick="checkBoxFunction()"> show flight routes <br>
 					<input type="checkbox" id="checkBoxAirport" checked onclick="checkBoxFunction()"> show airport icons <br>
-					<input type="checkbox" id="checkBoxCity" checked onclick="checkBoxFunction()"> show city icons <br>
+					<input type="checkbox" id="checkBoxCity" onclick="checkBoxFunction()"> show city icons <br>
 				</div>
 
 			</div>
@@ -88,14 +86,47 @@
 		<div style="display: none;">
 		  <div id="popup"></div>
 		</div>
+
+		
+		<!-- Flights chart -->
+		<div class="chart_section">
+			<div class="charts_header">
+				<p style="display:inline"> Total traveled distance: <pre id="total_distance" style="display:inline"></pre> km </p>
+			</div>
+			<hr>
+			<div class="charts_header">
+				<p> Flights Charts </p>
+			</div>
+			<div class="charts_super_container">
+					<div class="chart_container">
+						<p style="text-align: center;"> count the number of departures and arrivals at each airport </p>
+						<div class="chart_airportsubbox">
+						  <canvas class="horizontalBarChart" id="flights_analysisAirport" ></canvas>
+						</div>
+					</div>
+					<div class="chart_container">
+						<p style="text-align: center;"> Flight chart 2 (Comming soon)</p>
+						<div class="">
+						</div>
+					</div>
+					<div class="chart_container">
+						<p style="text-align: center;"> Flight chart 3 (Comming soon) </p>
+						<div class="">
+						</div>
+					</div>
+			</div>
+
+		</div>
 		
 	  </div>
 		<script src="js/common.js"></script>
 		<script src="js/data.js"></script>
 		<script src="js/main.js"></script>
+		<script src="js/dataAnalysis.js"></script>
 		<script src="js/index.js"></script>
 		<script> 
-			global_format_script();
+			flights_showChart();
+			flights_format_script();
 		</script>
 
 

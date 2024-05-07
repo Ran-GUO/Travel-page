@@ -1,11 +1,19 @@
 // Used by both index.html and cities
 
-const cities = ["barcelona","èze","lisbon", "monaco", "nice"];
+const cities = 
+[
+	{"name": "France Èze",			"web": "eze"},
+	{"name": "France Nice", 		"web": "nice"},
+	{"name": "Monaco Monte Carlo", 	"web": "monaco"},
+	{"name": "Portugal Lisbon",		"web": "lisbon"},
+	{"name": "Spanish Barcelona",	"web": "barcelona"},
 
+// "barcelona","èze","lisbon", "monaco", "nice"
+];
 
 function addCityPages(base_path,str){
   for(let i = 0; i < cities.length; i++){
-    str = str + "<li><a class=\"dropdown-item\" href=\"" + base_path + cities[i] + ".html\">" + cities[i] + "</a></li>";
+    str = str + "<li><a class=\"dropdown-item\" href=\"" + base_path + cities[i]["web"] + ".html\">" + cities[i]["name"] + "</a></li>";
   }
   let element=document.getElementById("city_sites");
   element.innerHTML = str;
@@ -49,3 +57,6 @@ function readCSVData(path,spl) {
     .catch(error => console.error('Error:', error));
     return data;
 }
+
+
+

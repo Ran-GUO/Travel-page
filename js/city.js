@@ -2,7 +2,7 @@
     
 var TIMEOUT = 500;
 let cityData = readCSVData('../js/data/travelcities.csv',',');
-addCityPages("","<li><a class=\"dropdown-item\" href=\"../cities.html\">CITIES MAP</a></li>");
+addCityPages("","<li><a class=\"dropdown-item\" href=\"../city.html\">CITIES MAP</a></li>");
 fix_footer();
 
 
@@ -63,27 +63,48 @@ function printCityOnHtml(idName,cityName){
 }
 
 
-// function readCSVData(path,spl) {
-  // let data = [];
-  // fetch(path)
-    // .then(response => response.text())
-    // .then(text => {
-      // let rows = text.split('\n');
-      // let headers = rows[0].split(spl);
-      // for (let i = 1; i < rows.length; i++) {
-        // let cells = rows[i].split(spl);
-        // if (cells.length === headers.length) {
-          // let obj = {};
-          // for (let j = 0; j < cells.length; j++) {
-            // obj[headers[j].trim()] = cells[j].trim();
-          // }
-          // data.push(obj);
-        // }
-      // }
+function travelFootprints(city, var_zoom, cityFootprints, spot_icon){
+	const map = new ol.Map({
+		target: 'map',
+		layers: [
+			new ol.layer.Tile({
+				source: new ol.source.OSM(),
+			}),
+		],
+		view: new ol.View({
+			center: ol.proj.fromLonLat([city[1],city[0]]),
+			zoom: var_zoom,
+		}),
+	});
+	
+	traceLayer = CreateTraceLayer(cityFootprints);
+	map.addLayer(traceLayer);
+	
+	function CreateTraceLayer(cityFootprints){
+		const container = new ol.layer.Vector({
+			source: new ol.source.Vector(),
+		});
+		for (let i = 0; i < cityFootprints.length; i++) {
+			for (let j = 0; j < cityFootprints[i]["foodPrints"].length; j++) {
+				const feature = new ol.Feature({
+					type:  'spot',
+					geometry: new ol.geom.Point(ol.proj.fromLonLat([cityFootprints[i]["foodPrints"][j]["lat_lon"][1], cityFootprints[i]["foodPrints"][j]["lat_lon"][0]])),
+					id: cityFootprints[i]["foodPrints"][j]["spot"],
+				  });
+				
+				const iconStyle = new ol.style.Style({
+					image: new ol.style.Icon({
+					  src: spot_icon,
+					  scale: 0.6,
+					  opacity: 1,
+					  anchor: [0.5, 0.5],
+					}),
+				});
+				feature.setStyle(iconStyle);
+				if (feature) container.getSource()?.addFeature(feature);
+			}
+		}
+		return container;
+	}
 
-      // console.log('CSV file successfully processed');
-      // // You can use 'data' array here for further processing
-    // })
-    // .catch(error => console.error('Error:', error));
-    // return data;
-// }
+}
