@@ -3,7 +3,7 @@
 const cityFootprints = [
 	{
 		"Date": "2019-10-29",
-		"foodPrints": [
+		"footprints": [
 		{
 			"spot": "La Casa Batlló",
 			"lat_lon":[41.39187838178268, 2.164903229384712],
@@ -23,7 +23,7 @@ const cityFootprints = [
 	},
 	{
 		"Date": "2019-10-30",
-		"foodPrints": [
+		"footprints": [
 		{
 			"spot": "La Casa Milà",
 			"lat_lon":[41.39543277791744, 2.161913125678301],
@@ -43,7 +43,7 @@ const cityFootprints = [
 	},	
 	{
 		"Date": "2019-10-31",
-		"foodPrints": [
+		"footprints": [
 		{
 			"spot": "Barcelona cathedrale",
 			"lat_lon":[41.38413101685518, 2.176188368005439],
@@ -58,16 +58,22 @@ const cityFootprints = [
 	},	
 	{
 		"Date": "2019-11-01",
-		"foodPrints": [
+		"footprints": [
+		{
+			"spot": "Barcelona-Sants train station",
+			"lat_lon":[41.38147564584334, 2.139870114898277],
+			"Transport": "",
+		},
 		{
 			"spot": "Montserrat Mountain Natural Park",
 			"lat_lon":[41.61085367440367, 1.814178325687705],
-			"Transport": "",
+			"Transport": "Train",
 		},
 		],
 	},		
 ];
 
-
+const screenWidth = window.innerWidth;
+const mapZoomSize = screenWidth <= 768 ? 12 : 13;
 printCityOnHtml('printCityByJS',"Barcelona");
-travelFootprints([41.38800220666444, 2.167651666002077], 10, cityFootprints, "../images/city-spot.png");
+travelFootprints([41.38800220666444, 2.167651666002077], mapZoomSize, cityFootprints, "../images/city-spot.png");

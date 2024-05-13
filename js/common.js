@@ -1,5 +1,5 @@
 // Used by both index.html and cities
-
+/*
 const cities = 
 [
 	{"name": "France Èze",			"web": "eze"},
@@ -9,11 +9,42 @@ const cities =
 	{"name": "Spanish Barcelona",	"web": "barcelona"},
 
 // "barcelona","èze","lisbon", "monaco", "nice"
+];*/
+
+const cities = 
+[
+  {"country": "France",
+   "city":
+   [{"name": "Èze",			"web": "eze"},
+    {"name": "Nice", 		"web": "nice"},
+   ]
+  },
+  {"country": "Monaco",
+   "city":
+   [{"name": "Monte Carlo",			"web": "monaco"},
+   ]
+  },
+  {"country": "Portugal",
+   "city":
+   [{"name": "Lisbon",		"web": "lisbon"},
+   ]
+  },
+  {"country": "Spanish",
+  "city":
+  [{"name": "Barcelona",	"web": "barcelona"},
+  ]
+  },
 ];
 
 function addCityPages(base_path,str){
+  str = str + "<li class=\"dropdown-divider \"></li>";
+
   for(let i = 0; i < cities.length; i++){
-    str = str + "<li><a class=\"dropdown-item\" href=\"" + base_path + cities[i]["web"] + ".html\">" + cities[i]["name"] + "</a></li>";
+    str = str + "<li class=\"dropdown-divider \"></li>";
+    str = str + "<li class=\"dropdown-header \">" + cities[i]["country"] + "</li>";
+    for(let j = 0; j < cities[i]["city"].length; j++){
+    str = str + "<li><a class=\"dropdown-item\" href=\"" + base_path + cities[i]["city"][j]["web"] + ".html\">" + cities[i]["city"][j]["name"] + "</a></li>";
+    }
   }
   let element=document.getElementById("city_sites");
   element.innerHTML = str;
