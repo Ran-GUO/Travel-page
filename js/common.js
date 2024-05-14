@@ -89,5 +89,3 @@ function readCSVData(path,spl) {
     return data;
 }
 
-
-

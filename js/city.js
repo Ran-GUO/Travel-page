@@ -74,6 +74,8 @@ function travelFootprints(city, var_zoom, cityFootprints, spot_icon){
 		view: new ol.View({
 			center: ol.proj.fromLonLat([city[1],city[0]]),
 			zoom: var_zoom,
+      minZoom: 5,
+      maxZoom: 20,
 		}),
 	});
 	
