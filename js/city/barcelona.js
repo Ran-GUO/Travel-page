@@ -20,6 +20,32 @@ const cityFootprints = [
 			"Transport": "",
 		},
 		],
+		"photo": [
+			{
+				"time" : "08:59",
+				"title": "Breakfast",
+				"source": "images/barcelona/memory1.jpg",
+				"description":"",
+			},
+			{
+				"time" : "09:43",
+				"title": "La Casa Batlló",
+				"source": "images/barcelona/memory2.jpg",
+				"description":"",
+			},
+			{
+				"time" : "12:37",
+				"title": "Sant Pau Recinte Modernista",
+				"source": "images/barcelona/memory3.jpg",
+				"description":"",
+			},
+			{
+				"time" : "18:14",
+				"title": "Park Güell",
+				"source": "images/barcelona/memory4.jpg",
+				"description":"",
+			},
+		],
 	},
 	{
 		"Date": "2019-10-30",
@@ -40,6 +66,26 @@ const cityFootprints = [
 			"Transport": "",
 		},
 		],
+		"photo": [
+			{
+				"time" : "10:19",
+				"title": "La Casa Milà",
+				"source": "images/barcelona/memory5.jpg",
+				"description":"",
+			},
+			{
+				"time" : "15:35",
+				"title": "Poble Espanyol",
+				"source": "images/barcelona/memory6.jpg",
+				"description":"",
+			},
+			{
+				"time" : "18:08",
+				"title": "Castell de Montjuïc (Montjuïc Castle)",
+				"source": "images/barcelona/memory7.jpg",
+				"description":"",
+			},
+		],
 	},	
 	{
 		"Date": "2019-10-31",
@@ -54,6 +100,26 @@ const cityFootprints = [
 			"lat_lon":[41.383002164657015, 2.168806728097051],
 			"Transport": "",
 		},
+		],
+		"photo": [
+			{
+				"time" : "10:33",
+				"title": "Barcelona cathedrale",
+				"source": "images/barcelona/memory8.jpg",
+				"description":"",
+			},
+			{
+				"time" : "14:27",
+				"title": "Sagrada Família",
+				"source": "images/barcelona/memory9.jpg",
+				"description":"",
+			},
+			{
+				"time" : "15:19",
+				"title": "Sagrada Família",
+				"source": "images/barcelona/memory10.jpg",
+				"description":"",
+			},
 		],
 	},	
 	{
@@ -70,10 +136,20 @@ const cityFootprints = [
 			"Transport": "Train",
 		},
 		],
+		"photo": [
+			{
+				"time" : "17:03",
+				"title": "Montserrat Mountain Natural Park",
+				"source": "images/barcelona/memory11.jpg",
+				"description":"",
+			},
+		],
 	},		
 ];
 
+createMemoryYearFilter(cityFootprints);
 const screenWidth = window.innerWidth;
 const mapZoomSize = screenWidth <= 768 ? 12 : 13;
 printCityOnHtml('printCityByJS',"Barcelona");
 travelFootprints([41.38800220666444, 2.167651666002077], mapZoomSize, cityFootprints, "../images/city-spot.png");
+displayMemories("memories-cards", cityFootprints, 0, 0);

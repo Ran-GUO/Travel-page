@@ -5,6 +5,31 @@ let cityData = readCSVData('../js/data/travelcities.csv',',');
 addCityPages("","<li><a class=\"dropdown-item\" href=\"../city.html\">CITIES MAP</a></li>");
 fix_footer();
 
+function searchMemoryFunction(){
+	const sortDropdown = document.getElementById('memorySort');
+	const sortBy = sortDropdown.value;
+  const filterYearDropdown  = document.getElementById('yearFilter');
+	const filterYearBy = filterYearDropdown.value;
+  let sortType = 0;
+  let yearFilter = 0;
+	switch (sortBy) {
+	  case 'random':
+      sortType = 0;
+      break;
+	  case 'timeline':
+      sortType = 1;
+		  break;
+	  case 'reverse timeline':
+      sortType = 2;
+		  break;
+	  default:
+		console.log('Invalid sorting option');
+	}
+  yearFilter = parseInt(filterYearBy);
+  displayMemories("memories-cards", cityFootprints, sortType, yearFilter);
+}
+
+
 
 // fixed footer
 function fix_footer() {
@@ -61,6 +86,7 @@ function printCityOnHtml(idName,cityName){
     element.innerHTML = printCityToString(getCityData(cityName));
   }, TIMEOUT);
 }
+
 
 
 function travelFootprints(city, var_zoom, cityFootprints, spot_icon){
@@ -228,7 +254,7 @@ function travelFootprints(city, var_zoom, cityFootprints, spot_icon){
       checkbox.addEventListener('click', function() {
         // 在这里调用你想要运行的函数
         // 示例：runAnotherFunction(item.Date);
-        checkBoxFunction(data, checkbox,item.Date)
+      checkBoxFunction(data, checkbox,item.Date)
 
       });
   
@@ -256,3 +282,95 @@ function travelFootprints(city, var_zoom, cityFootprints, spot_icon){
   }
 
 }
+
+
+
+function displayMemories(idName, cityFootprints, sortType, yearFilter){
+  let str = "";
+  let memories = [];
+  let count = 0;
+
+  for(let i = 0; i < cityFootprints.length; i++){
+    for(let j = 0; j < cityFootprints[i]["photo"].length; j++){
+      if(yearFilter == 0 || getYearFromDate(cityFootprints[i]["Date"]) == yearFilter){
+        memories.push(cityFootprints[i]["photo"][j]);
+        memories[count]["Date"] = cityFootprints[i]["Date"]; 
+        count ++;
+      }
+    }
+  }
+
+  let randomArray;
+  if(sortType == 0){
+    randomArray = generateRandomArray(memories.length);
+  }
+
+  for(let i = 0; i < memories.length; i++){
+    let memory_data;
+    if(sortType == 0){
+      memory_data = memories[randomArray[i]];
+    }
+    else if(sortType == 1){
+      memory_data = memories[i];
+    }
+    else if(sortType == 2){
+      memory_data = memories[memories.length - 1 - i];
+    }
+    else{
+      console.log("sort error");
+    }
+
+    str += "<div class=\"col-12 col-xs-12 col-sm-12 col-md-6 col-lg-4 card memory_container\"> ";
+    str += "<img class=\"card-img-top memory_image_container\" src=" + memory_data["source"] + " alt=" +  memory_data["title"] + ">";
+    str += "<div class=\"card-body\">";
+    str += "<p class=\"card-text\">";
+    str += memory_data["title"] + " <br>";
+    str += memory_data["Date"] + " " + memory_data["time"] + " <br>";
+    str += "</p>";
+    str += "</div>";
+    str += "</div>";   
+  }
+
+  setTimeout(() => {
+    let element = document.getElementById(idName);
+    element.innerHTML = str;
+  }, TIMEOUT);
+
+  //generate random array, length is n 
+  function generateRandomArray(n) {
+    // 创建一个包含 0 到 (n-1) 的初始数组
+    const array = Array.from({ length: n }, (_, index) => index);
+  
+    // Fisher-Yates 洗牌算法
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1)); // 生成随机索引
+      [array[i], array[j]] = [array[j], array[i]]; // 交换元素
+    }
+  
+    return array;
+  }
+}
+
+
+function createMemoryYearFilter(data) {
+  
+  // 获取放置复选框的容器元素
+  const container = document.getElementById('yearFilter');
+  const option = document.createElement('option');
+  option.value = 0; 
+  option.textContent = "all"; 
+  yearFilter.appendChild(option);
+
+  // 创建选项并添加到下拉菜单中
+  data.forEach(item => {
+    let year = getYearFromDate(item.Date);
+    const op = container.querySelector(`option[value="${year}"]`);
+    if(op == null){
+      const option = document.createElement('option');
+      option.value = year; 
+      option.textContent = year; 
+      yearFilter.appendChild(option);
+    }
+  });
+}
+

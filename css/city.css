@@ -1,4 +1,5 @@
 
+
 body {
   margin: 0;
   padding: 0;
@@ -84,43 +85,42 @@ body {
   /* height: 100px; */
 }
 
-/* @media only screen and (max-width: 1200px) {
-  .memory_image_container .memory_container {
-    .memory_container {
-      max-height: 500px;
-    }
-    .memory_text_container {
-      height: 50px;
-    }
-  }
+#divMemorySearch{
+  width: 400px;
+  height: 80px;
+  margin-bottom: 50px;
 }
 
-@media only screen and (max-width: 992px) {
-  .memory_container {
-    max-height: 500px;
-  }
-  .memory_text_container {
-    height: 50px;
-  }
+#button-sort{
+  height: 30px;
+  width: 305px;
+  
 }
+
+#memorySort{
+  height: 30px;
+  width: 200px;
+  
+}
+#yearFilter{
+  height: 30px;
+  width: 200px;
+  
+}
+
 
 @media only screen and (max-width: 768px) {
-  .memory_container {
-    max-height: 650px;
-  }
-  .memory_text_container {
-    height: 100px;
+  #divMemorySearch{
+    font-size: 1.0rem;
   }
 }
 
-@media only screen and (max-width: 576px) {
-  .memory_container {
-    max-height: 650px;
+@media screen and (min-width: 768px) {
+  #divMemorySearch{
+    font-size: 1.2rem;
   }
-  .memory_text_container {
-    height: 100px;
-  }
-}  */
+}
+
 
 
 

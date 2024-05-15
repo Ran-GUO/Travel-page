@@ -13,12 +13,7 @@ setTimeout(() => {
 }, TIMEOUT-200); // Adjust time as needed
 
 
-//extract year from date string format yyyy-mm-dd
-function getYearFromDate(date){
-  const d = new Date(date);
-  let year = d.getFullYear();
-  return year;
-}
+
 
 //Filter objects from flight data with year
 function flightsDataYearFilter(year){

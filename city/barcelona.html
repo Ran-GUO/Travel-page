@@ -128,108 +128,25 @@
                         <div>
                             <h2 class="pb-4 fw-bold">Some Memories</h2>
                         </div>
+                        
                     </div>
-                    <div class="row">
-                        <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-4 card memory_container">
-                            <img class="card-img-top memory_image_container" src="images/barcelona/memory1.jpg" alt="Card image cap">
-                            <div class="card-body">
-                                <p class="card-text">
-                                    Breakfast  <br>
-                                    2019-10-29 08:59<br>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-4 card memory_container">
-                            <img class="card-img-top memory_image_container" src="images/barcelona/memory2.jpg" alt="Card image cap">
-                            <div class="card-body">
-                                <p class="card-text">
-                                    La Casa Batlló <br>
-                                    2019-10-29 09:43<br>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-4 card memory_container">
-                            <img class="card-img-top memory_image_container" src="images/barcelona/memory3.jpg" alt="Card image cap">
-                            <div class="card-body">
-                                <p class="card-text">
-                                    Sant Pau Recinte Modernista<br>
-                                    2019-10-29 12:37<br>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-4 card memory_container">
-                            <img class="card-img-top memory_image_container" src="images/barcelona/memory4.jpg" alt="Card image cap">
-                            <div class="card-body">
-                                <p class="card-text">
-                                    Park Güell<br>
-                                    2019-10-29 18:14<br>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-4 card memory_container">
-                            <img class="card-img-top memory_image_container" src="images/barcelona/memory5.jpg" alt="Card image cap">
-                            <div class="card-body">
-                                <p class="card-text">
-                                    La Casa Milà<br>
-                                    2019-10-30 10:19<br>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-4 card memory_container">
-                            <img class="card-img-top memory_image_container" src="images/barcelona/memory6.jpg" alt="Card image cap">
-                            <div class="card-body">
-                                <p class="card-text">
-                                    Poble Espanyol<br>
-                                    2019-10-30 15:35<br>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-4 card memory_container">
-                            <img class="card-img-top memory_image_container" src="images/barcelona/memory7.jpg" alt="Card image cap">
-                            <div class="card-body">
-                                <p class="card-text">
-                                    Castell de Montjuïc (Montjuïc Castle)<br>
-                                    2019-10-30 18:08<br>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-4 card memory_container">
-                            <img class="card-img-top memory_image_container" src="images/barcelona/memory8.jpg" alt="Card image cap">
-                            <div class="card-body">
-                                <p class="card-text">
-                                    Barcelona cathedrale<br>
-                                    2019-10-31 10:33<br>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-4 card memory_container">
-                            <img class="card-img-top memory_image_container" src="images/barcelona/memory9.jpg" alt="Card image cap">
-                            <div class="card-body">
-                                <p class="card-text">
-                                    Sagrada Família<br>
-                                    2019-10-31 14:27<br>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-4 card memory_container">
-                            <img class="card-img-top memory_image_container" src="images/barcelona/memory10.jpg" alt="Card image cap">
-                            <div class="card-body">
-                                <p class="card-text">
-                                    Sagrada Família<br>
-                                    2019-10-31 15:19<br>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-4 card memory_container">
-                            <img class="card-img-top memory_image_container" src="images/barcelona/memory11.jpg" alt="Card image cap">
-                            <div class="card-body">
-                                <p class="card-text">
-                                    Montserrat Mountain Natural Park<br>
-                                    2019-11-01 17:03<br>
-                                </p>
-                            </div>
-                        </div>
- 
+                    <div id="divMemorySearch">
+                        <label for="yearFilter" style="width: 100px;">Year Filter:</label>
+                        <select id="yearFilter">
+                        </select>
+
+                        <label for="sort" style="width: 100px;">Sort by:</label>
+                        <select id="memorySort">
+                        <option value="random">Random</option>
+                        <option value="timeline">Timeline</option>
+                        <option value="reverse timeline">Timeline (Reverse)</option>
+                        </select>
+
+                        <button onclick="searchMemoryFunction()" id="button-sort" >Search</button>
+                    </div>
+
+                    <div class="row" id="memories-cards">
+                        <!-- javascript displayMemories(...)-->
                     </div>
                 </div>
             </div>

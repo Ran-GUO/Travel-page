@@ -36,6 +36,13 @@ const cities =
   },
 ];
 
+//extract year from date string format yyyy-mm-dd
+function getYearFromDate(date){
+  const d = new Date(date);
+  let year = d.getFullYear();
+  return year;
+}
+
 function addCityPages(base_path,str){
   str = str + "<li class=\"dropdown-divider \"></li>";
 
