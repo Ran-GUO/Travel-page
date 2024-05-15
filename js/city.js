@@ -322,6 +322,9 @@ function displayMemories(idName, cityFootprints, sortType, yearFilter){
 
     str += "<div class=\"col-12 col-xs-12 col-sm-12 col-md-6 col-lg-4 card memory_container\"> ";
     str += "<img class=\"card-img-top memory_image_container\" src=" + memory_data["source"] + " alt=" +  memory_data["title"] + ">";
+    str += "<div class=\"overlay\">";
+    str += "<div class=\"overlay-text\">" + memory_data["description"] + "</div>";
+    str += "</div>";
     str += "<div class=\"card-body\">";
     str += "<p class=\"card-text\">";
     str += memory_data["title"] + " <br>";
@@ -353,12 +356,11 @@ function displayMemories(idName, cityFootprints, sortType, yearFilter){
 
 
 function createMemoryYearFilter(data) {
-  
   // 获取放置复选框的容器元素
   const container = document.getElementById('yearFilter');
   const option = document.createElement('option');
   option.value = 0; 
-  option.textContent = "all"; 
+  option.textContent = "All"; 
   yearFilter.appendChild(option);
 
   // 创建选项并添加到下拉菜单中
@@ -374,3 +376,18 @@ function createMemoryYearFilter(data) {
   });
 }
 
+function printTips(idName, tips){
+  let str="";
+  for(let i = 0; i < tips.length; i++){
+    str += "<div class=\"tips\">";
+    str += "<p class=\"tipsHeader\">" + tips[i]["header"] + "</p>";
+    str += "<p class=\"tipsMain\">" + tips[i]["main"] + "</p>";
+    str += "<p class=\"tipsDate\">" + tips[i]["date"] + "</p>";
+    str += "</div>";
+  }
+
+  setTimeout(() => {
+    let element = document.getElementById(idName);
+    element.innerHTML = str;
+  }, TIMEOUT);
+}

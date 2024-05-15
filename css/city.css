@@ -16,17 +16,6 @@ body {
   object-fit: cover; /* 保持原始比例并填充容器 */
 }
 
-.memory_container {
-  float: left;
-  padding: 0;
-  overflow-y: scroll;
-}
-
-.memory_image_container {
-  display: block; /* 使容器成为块级元素 */
-  overflow: hidden; /* 隐藏超出容器的部分 */
-  object-fit: cover; /* 保持原始比例并填充容器 */
-}
 
 .transport_container{
   width: auto;
@@ -85,6 +74,20 @@ body {
   /* height: 100px; */
 }
 
+
+/* ========================= memory =========================*/
+@media only screen and (max-width: 768px) {
+  #divMemorySearch{
+    font-size: 1.0rem;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  #divMemorySearch{
+    font-size: 1.2rem;
+  }
+}
+
 #divMemorySearch{
   width: 400px;
   height: 80px;
@@ -108,18 +111,64 @@ body {
   
 }
 
-
-@media only screen and (max-width: 768px) {
-  #divMemorySearch{
-    font-size: 1.0rem;
-  }
+.memory_container {
+  float: left;
+  padding: 0;
+  overflow-y: scroll;
 }
 
-@media screen and (min-width: 768px) {
-  #divMemorySearch{
-    font-size: 1.2rem;
-  }
+.memory_image_container {
+  display: block; /* 使容器成为块级元素 */
+  overflow: hidden; /* 隐藏超出容器的部分 */
+  object-fit: cover; /* 保持原始比例并填充容器 */
 }
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  aspect-ratio: 1 / 1; 
+  background: rgba(0, 0, 0, 0.5); /* 半透明黑色背景 */
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s; /* 淡入淡出效果 */
+}
+.memory_container:hover .overlay {
+  opacity: 1;
+}
+
+
+
+/* ========================= Tips =========================*/
+#divTips{
+  position: relative;
+  width: 100%;
+}
+
+.tips{
+  background-color: #f7f7f7;
+}
+
+.tipsHeader{
+  font-weight: bold;
+}
+
+.tipsMain{
+  font-weight: 100; 
+}
+
+.tipsDate{
+  font-weight: 100; 
+  text-align: right;
+  font-size: 1.0rem;
+}
+
+
+
 
 
 

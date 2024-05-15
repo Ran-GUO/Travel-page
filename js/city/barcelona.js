@@ -147,9 +147,18 @@ const cityFootprints = [
 	},		
 ];
 
+const tips = [
+	{
+		"date": "unknown",
+		"header": "upcoming",
+		"main": "upcoming"
+	},
+];
+
 createMemoryYearFilter(cityFootprints);
 const screenWidth = window.innerWidth;
 const mapZoomSize = screenWidth <= 768 ? 12 : 13;
 printCityOnHtml('printCityByJS',"Barcelona");
 travelFootprints([41.38800220666444, 2.167651666002077], mapZoomSize, cityFootprints, "../images/city-spot.png");
 displayMemories("memories-cards", cityFootprints, 0, 0);
+printTips("divTips", tips);
