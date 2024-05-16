@@ -9,6 +9,7 @@
     <link rel="icon" href="../images/travel.png">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/city.css">
+    <link rel="stylesheet" href="../css/ol.css">
 
 </head>
 
@@ -100,23 +101,22 @@
                             <h2 class="fw-bold pb-2">About Lisbon</h2>
                             <p>Country : Portugal</p>
                             <p id="printCityByJS"></p>
+                        </div>
+                        <div class="col-12 col-xs-12 col-sm-12 col-md-8 col-lg-8">
                             <p style="text-align: justify;">Lisbon, Portugal's capital, blends historic charm with modern allure along the Tagus River. </p>
                             <p style="text-align: justify;">From vibrant streets adorned with colorful tiles to iconic landmarks like São Jorge Castle and Belém Tower, this coastal city offers a rich tapestry of experiences, 
                                 enticing visitors with its captivating beauty and lively ambiance.</p>
                             <!-- <p>2020-07-06 ~ 2020-07-10</p> -->
                         </div>
-                        <div class="col-12 col-xs-12 col-sm-12 col-md-8 col-lg-8">
-                            <div class="aos-item" data-aos="fade-up" data-aos-delay="200">
-                                <div class="aos-item__inner">
-                                    <img title="" class="rounded w-100" src="images/lisbon/about.png" alt="">
-                                    <div class="caption">
-                                        <figcaption class="figure-caption py-2">About...</figcaption>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
+            </div>
+            <div id="map">
+                <div id="checkboxContainer"></div>
+            </div>
+            
+            <div style="display: none;">
+                <div id="popup"></div>
             </div>
         </section>
         <section id="section-3">
@@ -126,90 +126,40 @@
                         <div>
                             <h2 class="pb-4 fw-bold">Some Memories</h2>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-4 card memory_container">
-                            <img class="card-img-top memory_image_container" src="images/lisbon/memory1.jpg" alt="Card image cap">
-                            <div class="card-body">
-                                <p class="card-text">
-                                    Casa Pastéis de Belém <br>
-                                    2020-07-07 13:34<br>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-4 card memory_container">
-                            <img class="card-img-top memory_image_container" src="images/lisbon/memory2.jpg" alt="Card image cap">
-                            <div class="card-body">
-                                <p class="card-text">
-                                    Padrão dos Descobrimentos <br>
-                                    2020-07-07 15:01<br>
-                                    <!-- (发现者纪念碑) 1940 年为纪念航海家亨利逝世 500 周年而建 <br> -->  
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-4 card memory_container">
-                            <img class="card-img-top memory_image_container" src="images/lisbon/memory3.jpg" alt="Card image cap">
-                            <div class="card-body">
-                                <p class="card-text">
-                                    Torre de Belém  <br>
-                                    2020-07-07 15:38
-                                    <!-- (贝伦塔) -->
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-4 card memory_container">
-                            <img class="card-img-top memory_image_container" src="images/lisbon/memory4.jpg" alt="Card image cap">
-                            <div class="card-body">
-                                <p class="card-text">
-                                    Dinner <br>
-                                    2020-07-07 20:37 <br>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-4 card memory_container">
-                            <img class="card-img-top memory_image_container" src="images/lisbon/memory5.jpg" alt="Card image cap">
-                            <div class="card-body">
-                                <p class="card-text">
-                                    Praça do Comércio <br>
-                                    2020-07-08 21:26<br>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-4 card memory_container">
-                            <img class="card-img-top memory_image_container" src="images/lisbon/memory6.jpg" alt="Card image cap">
-                            <div class="card-body">
-                                <p class="card-text">
-                                    Palácio Nacional da Pena  <br>
-                                    2020-07-09 14:33<br>
-                                    <!-- (佩纳宫) -->
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-4 card memory_container">
-                            <img class="card-img-top memory_image_container" src="images/lisbon/memory7.jpg" alt="Card image cap">
-                            <div class="card-body">
-                                <p class="card-text">
-                                    Quinta da Regaleira  <br>
-                                    2020-07-09 15:53<br>
-                                    <!-- (雷加莱拉宫) -->
-                                </p>
-                            </div>
-                        </div>
-                        <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-4 card memory_container">
-                            <img class="card-img-top memory_image_container" src="images/lisbon/memory8.jpg" alt="Card image cap">
-                            <div class="card-body">
-                                <p class="card-text">
-                                    Cabo da Roca  <br>
-                                    2020-07-09 18:54<br>
-                                    <!-- (罗卡角) -->
-                                </p>
-                            </div>
-                        </div>
-
                         
+                    </div>
+                    <div id="divMemorySearch">
+                        <label for="yearFilter" style="width: 95px;">Year Filter:</label>
+                        <select id="yearFilter">
+                        </select>
+
+                        <label for="sort" style="width: 95px;">Sort by:</label>
+                        <select id="memorySort">
+                        <option value="random">Random</option>
+                        <option value="timeline">Timeline</option>
+                        <option value="reverse timeline">Timeline (Reverse)</option>
+                        </select>
+
+                        <button onclick="searchMemoryFunction()" id="button-sort" >Search</button>
+                    </div>
+
+                    <div class="row" id="memories-cards">
+                        <!-- javascript displayMemories(...)-->
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="section-4">
+            <div class="d-flex justify-content-between">
+                <div class="container py-5">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h2 class="pb-4 fw-bold">Some Tips</h2>
+                        </div>
+                    </div>
+
+                    <div id="divTips">
+                       <!-- added by javascript -->
                     </div>
                 </div>
             </div>
@@ -233,11 +183,10 @@
 
     <!-- Custom JS -->
     <!-- <script src="../js/data.js"></script> -->
+    <script src="../js/ol.js"></script>
 	<script src="../js/common.js"></script>
     <script src="../js/city.js"></script>
-    <script>
-        printCityOnHtml('printCityByJS',"Lisbon (Lisboa)");
-    </script>
+    <script src="../js/city/lisbon.js"></script>
     
 </body>
 
