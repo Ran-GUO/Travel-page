@@ -50,12 +50,18 @@ const tips = [
 	},
 ];
 
-createMemoryYearFilter(cityFootprints);
+
+
 const screenWidth = window.innerWidth;
 const mapZoomSize = screenWidth <= 768 ? 12 : 13;
+var lat_lon_1 = cityFootprints[0]["footprints"][0]["lat_lon"]; // Nice Côte D'Azur airport (NCE)
+var lat_lon_2 = cityFootprints[1]["footprints"][1]["lat_lon"]; // Ville Franche Sur Mer
+var lat_lon_center = [(lat_lon_1[0] + lat_lon_2[0])/2.0, (lat_lon_1[1] + lat_lon_2[1])/2.0];
+
+
+createMemoryYearFilter(cityFootprints);
 printCityOnHtml('printCityByJS',"Nice");
-travelFootprints([43.688958953330285, 7.241849726990818], mapZoomSize, cityFootprints, "../images/city-spot.png");
+travelFootprints(lat_lon_center, mapZoomSize, cityFootprints, "../images/city-spot.png");
 displayMemories("memories-cards", cityFootprints, 0, 0);
 printTips("divTips", tips);
-
 
