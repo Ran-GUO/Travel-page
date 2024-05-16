@@ -190,7 +190,6 @@ function travelFootprints(city, var_zoom, cityFootprints, spot_icon){
   function createLineVectors(data) {
     // 提取位置信息
     const locations = data.footprints.map(item => item.lat_lon);
-    console.log(locations);
     // 创建线段要素数组
     const lineFeatures = [];
     for (let i = 0; i < locations.length - 1; i++) {

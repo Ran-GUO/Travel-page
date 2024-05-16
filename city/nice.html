@@ -126,30 +126,40 @@
                         <div>
                             <h2 class="pb-4 fw-bold">Some Memories</h2>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-4 card memory_container">
-                            <img class="card-img-top memory_image_container" src="images/nice/memory1.jpg" alt="Card image cap">
-                            <div class="overlay">
-                                <div class="overlay-text">Description</div>
-                            </div>
-                            <div class="card-body">
-                                <p class="card-text">
-                                    Ville-Franche-Sur-Mer<br>
-                                    2020-12-14 <br>
-                                    Beach!
-                                </p>
-                            </div>
-                        </div>
-                        <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-4 card memory_container">
-                            <img class="card-img-top memory_image_container" src="images/common/commingSoon.png" alt="Card image cap">
-                            <div class="card-body">
-                                <p class="card-text">
-                                    Comming soon...
-                                </p>
-                            </div>
-                        </div>
                         
+                    </div>
+                    <div id="divMemorySearch">
+                        <label for="yearFilter" style="width: 95px;">Year Filter:</label>
+                        <select id="yearFilter">
+                        </select>
+
+                        <label for="sort" style="width: 95px;">Sort by:</label>
+                        <select id="memorySort">
+                        <option value="random">Random</option>
+                        <option value="timeline">Timeline</option>
+                        <option value="reverse timeline">Timeline (Reverse)</option>
+                        </select>
+
+                        <button onclick="searchMemoryFunction()" id="button-sort" >Search</button>
+                    </div>
+
+                    <div class="row" id="memories-cards">
+                        <!-- javascript displayMemories(...)-->
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="section-4">
+            <div class="d-flex justify-content-between">
+                <div class="container py-5">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h2 class="pb-4 fw-bold">Some Tips</h2>
+                        </div>
+                    </div>
+
+                    <div id="divTips">
+                       <!-- added by javascript -->
                     </div>
                 </div>
             </div>
