@@ -451,23 +451,26 @@ function displayPopup(e) {
 }
 
 function showCityHTML(cityName){
-  let newPage = 'city/'+ normalizeCityName(cityName) +'.html';
+  
 
-  var request;
-  if(window.XMLHttpRequest){
-    request = new XMLHttpRequest();
+  let found = 0;
+  let webname = "";
+  for( let i = 0; i < cities.length; i++){
+    for( let j = 0; j < cities[i]["city"].length; j++){
+      //console.log(cities[i]["city"][j]["name"]);
+      if (cities[i]["city"][j]["name"] == normalizeCityName(cityName)){
+        found = 1;
+        webname = cities[i]["city"][j]["web"];
+        break;
+      } 
+    }
   }
-  else{
-    request = new ActiveXObject("Microsoft.XMLHTTP");
+  if(found == 1){
+    showNotification(webname);
   }
-  request.open('GET', newPage, false);
-  request.send(); // there will be a 'pause' here until the response to come.
-  // the object request will be actually modified
-  if (request.status != 404) {
-      showNotification(cityName);
-  }
+  
   function normalizeCityName(cityName){
-    let input = cityName.toLowerCase();
+    let input = cityName;
     // 使用正则表达式获取空格和括号前的一部分
     var match = input.match(/([^\s(]+)/);
     var normalizeName;
@@ -477,13 +480,13 @@ function showCityHTML(cityName){
       // 如果没有匹配到有效的部分，则返回空字符串
       normalizeName = '';
     }
-    console.log(normalizeName);
     return normalizeName;
 
   }
 
   function showNotification(cityName) {
-    let newPage = 'city/'+ normalizeCityName(cityName) +'.html';
+
+    let newPage = 'city/'+ cityName +'.html';
     var notification = document.getElementById('notification');
     var content = 'More details：<br>';
     content += '<a href="'+ newPage + '" target="_blank">'+ cityName + '</a>';

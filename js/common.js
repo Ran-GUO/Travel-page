@@ -21,7 +21,7 @@ const cities =
   },
   {"country": "Monaco",
    "city":
-   [{"name": "Monte Carlo",			"web": "monaco"},
+   [{"name": "Monaco",			"web": "monaco"},
    ]
   },
   {"country": "Portugal",
