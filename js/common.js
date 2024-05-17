@@ -13,6 +13,11 @@ const cities =
 
 const cities = 
 [
+  {"country": "Czech Republic",
+  "city":
+   [{"name": "Prague",			"web": "prague"},
+   ]
+  },
   {"country": "France",
    "city":
    [{"name": "Èze",			"web": "eze"},
