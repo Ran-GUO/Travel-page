@@ -36,7 +36,9 @@ const cities =
   },
   {"country": "Spanish",
   "city":
-  [{"name": "Barcelona",	"web": "barcelona"},
+  [ 
+    {"name": "Barcelona",	"web": "barcelona"},
+    {"name": "Las Palmas (Gran Canaria)",	"web": "gran-canaria"},
   ]
   },
 ];
