@@ -37,6 +37,12 @@ const cityFootprints = [
 		],
 		"photo": [
 			{
+				"time" : "08:09",
+				"title": "Katedrála sv. Víta (St. Vitus Cathedral)",
+				"source": "images/prague/katedrala-sv-vita-3.jpg",
+				"description":"St. Vitus Cathedral. <br>Located within Prague Castle. <br>Completed:1929.",
+			},
+			{
 				"time" : "08:33",
 				"title": "Katedrála sv. Víta (St. Vitus Cathedral)",
 				"source": "images/prague/katedrala-sv-vita.jpg",
@@ -66,6 +72,20 @@ const cityFootprints = [
 				"source": "images/prague/tram.jpg",
 				"description":"",
 			},
+			{
+				"time" : "11:54",
+				"title": "Lunch Beer",
+				"source": "images/prague/lunch-beer.jpg",
+				"description":"Restaurant : Bredovský Dvůr <br>lat : 50.08261290863606 <br>lon : 14.429887956850052",
+			},
+			{
+				"time" : "12:08",
+				"title": "Lunch",
+				"source": "images/prague/lunch.jpg",
+				"description":"Restaurant : Bredovský Dvůr <br>lat : 50.08261290863606 <br>lon : 14.429887956850052",
+			},
+
+			
 		],
 	},
 	{
@@ -85,6 +105,26 @@ const cityFootprints = [
 		}
 		],
 		"photo": [
+			{
+				"time" : "11:55",
+				"title": "Bridge sight",
+				"source": "images/prague/bridge-sight.jpg",
+				"description":"Captured at Letna Park",
+			},
+			{
+				"time" : "12:41",
+				"title": "Pražský orloj (Prague astronomical clock)",
+				"source": "images/prague/prazsky-orloj.jpg",
+				"description":"",
+			},
+			{
+				"time" : "14:16",
+				"title": "Trdelník (trdlo / trozkol)",
+				"source": "images/prague/trdelnik.jpg",
+				"description":"Bought at Old Town Square",
+			},
+
+			
 		],
 	},		
 ];
