@@ -458,7 +458,7 @@ function showCityHTML(cityName){
   for( let i = 0; i < cities.length; i++){
     for( let j = 0; j < cities[i]["city"].length; j++){
       //console.log(cities[i]["city"][j]["name"]);
-      if (cities[i]["city"][j]["name"] == normalizeCityName(cityName)){
+      if (cities[i]["city"][j]["name"] == normalizeCityName(cityName) || cities[i]["city"][j]["name"] == cityName){
         found = 1;
         webname = cities[i]["city"][j]["web"];
         break;
@@ -466,7 +466,7 @@ function showCityHTML(cityName){
     }
   }
   if(found == 1){
-    showNotification(webname);
+    showNotification(cityName, webname);
   }
   
   function normalizeCityName(cityName){
@@ -484,9 +484,9 @@ function showCityHTML(cityName){
 
   }
 
-  function showNotification(cityName) {
+  function showNotification(cityName, webname) {
 
-    let newPage = 'city/'+ cityName +'.html';
+    let newPage = 'city/'+ webname +'.html';
     var notification = document.getElementById('notification');
     var content = 'More details：<br>';
     content += '<a href="'+ newPage + '" target="_blank">'+ cityName + '</a>';
