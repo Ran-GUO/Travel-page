@@ -252,7 +252,7 @@ const tips = [
 ];
 
 const screenWidth = window.innerWidth;
-const mapZoomSize = screenWidth <= 768 ? 19 : 10;
+const mapZoomSize = screenWidth <= 768 ? 9 : 10;
 var lat_lon_1 = cityFootprints[4]["footprints"][0]["lat_lon"];  // Hotel Príncipe Paz
 var lat_lon_2 = cityFootprints[4]["footprints"][2]["lat_lon"];  // Siam Park
 var lat_lon_center = [(lat_lon_1[0] + lat_lon_2[0])/2.0, (lat_lon_1[1] + lat_lon_2[1])/2.0];

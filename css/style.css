@@ -11,6 +11,12 @@ body {
   margin-right: 135px;
 }
 
+#city_sites{
+  max-height: 70vh;
+  padding-bottom: 50px;
+  overflow-y: scroll;
+}
+
 /***************************************
  Map Containner and inner elements
  ***************************************/

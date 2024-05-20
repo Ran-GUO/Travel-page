@@ -11,6 +11,12 @@ body {
   margin-right: 135px;
 }
 
+#city_sites{
+  max-height: 70vh;
+  padding-bottom: 50px;
+  overflow-y: scroll;
+}
+
 .image_container {
   width: 100vw; /* 可根据需要调整宽度 */
   height: 100vh; /* 自动调整高度 */
