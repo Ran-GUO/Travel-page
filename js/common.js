@@ -39,6 +39,7 @@ const cities =
   [ 
     {"name": "Barcelona",	"web": "barcelona"},
     {"name": "Las Palmas (Gran Canaria)",	"web": "gran-canaria"},
+    {"name": "Santa Cruz (Tenerife)",	"web": "tenerife"},
   ]
   },
 ];
