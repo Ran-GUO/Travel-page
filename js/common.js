@@ -1,48 +1,75 @@
 // Used by both index.html and cities
-/*
-const cities = 
-[
-	{"name": "France Èze",			"web": "eze"},
-	{"name": "France Nice", 		"web": "nice"},
-	{"name": "Monaco Monte Carlo", 	"web": "monaco"},
-	{"name": "Portugal Lisbon",		"web": "lisbon"},
-	{"name": "Spanish Barcelona",	"web": "barcelona"},
 
-// "barcelona","èze","lisbon", "monaco", "nice"
-];*/
+const cityNameReplacement = [
+  ["Las Palmas", "Gran Canaria"], 
+  ["Santa Cruz", "Tenerife"],
+];
 
-const cities = 
+var cities = 
 [
   {"country": "Czech Republic",
-  "city":
-   [{"name": "Prague",			"web": "prague"},
-   ]
+  "city": ["Prague",]
   },
   {"country": "France",
-   "city":
-   [{"name": "Èze",			"web": "eze"},
-    {"name": "Nice", 		"web": "nice"},
-   ]
+   "city": ["Èze", "Nice",]
   },
   {"country": "Monaco",
-   "city":
-   [{"name": "Monaco",			"web": "monaco"},
-   ]
+   "city": ["Monaco",]
   },
   {"country": "Portugal",
-   "city":
-   [{"name": "Lisbon",		"web": "lisbon"},
-   ]
+   "city": ["Lisbon",]
   },
   {"country": "Spanish",
-  "city":
-  [ 
-    {"name": "Barcelona",	"web": "barcelona"},
-    {"name": "Las Palmas (Gran Canaria)",	"web": "gran-canaria"},
-    {"name": "Santa Cruz (Tenerife)",	"web": "tenerife"},
-  ]
+  "city": ["Barcelona",	"Gran Canaria",	"Tenerife",]
   },
 ];
+
+
+function normalizeCityName(cityName){
+  // 规则1：获取（空格及括号）前面的部分
+  var match = cityName.match(/^[^()]+?(?=\s*\()/) || cityName.match(/^[^()]+/);
+  var normalizedName;
+  if (match) {
+    normalizedName = match[0].trim();
+  } else {
+    // 如果没有匹配到有效的部分，则返回空字符串
+    normalizedName = cityName;
+  }
+
+  // 规则2：城市名替换cityNameReplacement
+  for(let i = 0; i < cityNameReplacement.length; i++){
+    if (normalizedName == cityNameReplacement[i][0]){
+      normalizedName = cityNameReplacement[i][1];
+    }
+  }
+  return normalizedName;
+}
+
+
+function getWebName(cityName) {
+  // 规则1：将城市名转换为小写
+  let normalized = cityName.toLowerCase();
+
+  // 规则2：将空格替换为 "-"
+  normalized = normalized.replace(/\s+/g, '-');
+
+  // 规则3：替换特殊字符
+  const specialCharsMap = {
+    'à': 'a', 'á': 'a', 'â': 'a', 'ã': 'a', 'ä': 'a', 'å': 'a', 'æ': 'ae',
+    'ç': 'c', 'è': 'e', 'é': 'e', 'ê': 'e', 'ë': 'e', 'ì': 'i', 'í': 'i',
+    'î': 'i', 'ï': 'i', 'ñ': 'n', 'ò': 'o', 'ó': 'o', 'ô': 'o', 'õ': 'o',
+    'ö': 'o', 'ø': 'o', 'ù': 'u', 'ú': 'u', 'û': 'u', 'ü': 'u', 'ý': 'y',
+    'ÿ': 'y', 'ß': 'ss', 'þ': 'th', 'ð': 'd', 'œ': 'oe', 'š': 's', 'ž': 'z',
+    'Å': 'A', 'Ä': 'A', 'Ö': 'O', 'Ü': 'U', 'ä': 'a', 'ö': 'o', 'ü': 'u',
+    'Æ': 'AE', 'Ø': 'O', 'å': 'a', 'æ': 'ae', 'ø': 'o'
+  };
+
+  normalized = normalized.replace(/[^\w-]/g, function(char) {
+    return specialCharsMap[char] || char;
+  });
+
+  return normalized;
+}
 
 //extract year from date string format yyyy-mm-dd
 function getYearFromDate(date){
@@ -58,7 +85,7 @@ function addCityPages(base_path,str){
     str = str + "<li class=\"dropdown-divider \"></li>";
     str = str + "<li class=\"dropdown-header \">" + cities[i]["country"] + "</li>";
     for(let j = 0; j < cities[i]["city"].length; j++){
-    str = str + "<li><a class=\"dropdown-item\" href=\"" + base_path + cities[i]["city"][j]["web"] + ".html\">" + cities[i]["city"][j]["name"] + "</a></li>";
+    str = str + "<li><a class=\"dropdown-item\" href=\"" + base_path + getWebName(cities[i]["city"][j]) + ".html\">" + cities[i]["city"][j] + "</a></li>";
     }
   }
   let element=document.getElementById("city_sites");

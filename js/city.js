@@ -2,8 +2,11 @@
     
 var TIMEOUT = 500;
 let cityData = readCSVData('../js/data/travelcities.csv',',');
-addCityPages("","<li><a class=\"dropdown-item\" href=\"../city.html\">CITIES MAP</a></li>");
 fix_footer();
+
+addCityPages("","<li><a class=\"dropdown-item\" href=\"../city.html\">CITIES MAP</a></li>");
+
+
 
 function searchMemoryFunction(){
 	const sortDropdown = document.getElementById('memorySort');

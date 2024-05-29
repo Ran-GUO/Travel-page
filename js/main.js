@@ -352,6 +352,8 @@ function CreateCityIconLayer(cityDataFiltered){
   return container;
 }
 
+
+
 // General function to set marker feature
 function CreatePointFeature(triplet, icon_src) {
   const feature = new ol.Feature({
@@ -373,9 +375,12 @@ function CreatePointFeature(triplet, icon_src) {
   return feature;
 }
 
+
+
+
 function GetCityInfo(cityName,cityDataFiltered){
   let str = "";
-  str = str + cityName + ":<br>";
+  str = str + normalizeCityName(cityName) + ":<br>";
   for (let i = 0; i < cityDataFiltered.length; i++) {
     let city = cityDataFiltered[i];
     if(city["city"] == cityName){
@@ -450,43 +455,29 @@ function displayPopup(e) {
   return hit ? f.get('id') : '';
 }
 
+
+
+
 function showCityHTML(cityName){
   
 
   let found = 0;
-  let webname = "";
   for( let i = 0; i < cities.length; i++){
     for( let j = 0; j < cities[i]["city"].length; j++){
       //console.log(cities[i]["city"][j]["name"]);
-      if (cities[i]["city"][j]["name"] == normalizeCityName(cityName) || cities[i]["city"][j]["name"] == cityName){
+      if (cities[i]["city"][j] == normalizeCityName(cityName) || cities[i]["city"][j] == cityName){
         found = 1;
-        webname = cities[i]["city"][j]["web"];
         break;
       } 
     }
   }
   if(found == 1){
-    showNotification(cityName, webname);
+    showNotification(normalizeCityName(cityName));
   }
   
-  function normalizeCityName(cityName){
-    let input = cityName;
-    // 使用正则表达式获取空格和括号前的一部分
-    var match = input.match(/([^\s(]+)/);
-    var normalizeName;
-    if (match && match[1]) {
-      normalizeName = match[1];
-    } else {
-      // 如果没有匹配到有效的部分，则返回空字符串
-      normalizeName = '';
-    }
-    return normalizeName;
+  function showNotification(cityName) {
 
-  }
-
-  function showNotification(cityName, webname) {
-
-    let newPage = 'city/'+ webname +'.html';
+    let newPage = 'city/'+ getWebName(cityName) +'.html';
     var notification = document.getElementById('notification');
     var content = 'More details：<br>';
     content += '<a href="'+ newPage + '" target="_blank">'+ cityName + '</a>';
